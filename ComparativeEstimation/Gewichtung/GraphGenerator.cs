@@ -31,17 +31,23 @@ namespace Gewichtung
 
             if (knoten == null)
             {
-                knoten = new Knoten{Index = index};
+                knoten = new Knoten { Index = index };
                 graph.Knoten.Add(knoten);
             }
 
             return knoten;
         }
 
+        /// <summary>
+        /// Sortierung des Graphen anhand
+        /// https://de.wikipedia.org/wiki/Topologische_Sortierung
+        /// </summary>
         public static void Sortieren(Graph graph, Action<Contracts.Gewichtung> ok, Action fehler)
         {
             var dict = Anzahl_Vorgänger_berechnen(graph);
-            TopologischSortieren(graph, dict, ok, fehler);
+            TopologischSortieren(graph, dict,
+                ok,
+                fehler);
         }
 
         internal static Dictionary<int, int> Anzahl_Vorgänger_berechnen(Graph graph)
@@ -51,7 +57,13 @@ namespace Gewichtung
                 return new Dictionary<int, int>();
             }
 
-            return graph.Knoten.Select(k => new { Index = k.Index, AnzahlVorgänger = graph.Knoten.Count(v => v.Nachfolger.Select(m => m.Index).Contains(k.Index)) }).ToDictionary(k => k.Index, v => v.AnzahlVorgänger);
+            return graph.Knoten.Select(k => new
+            {
+                Index = k.Index,
+                AnzahlVorgänger = graph.Knoten.Count(v => v.Nachfolger.Select(m => m.Index)
+                                                                      .Contains(k.Index))
+            })
+            .ToDictionary(k => k.Index, v => v.AnzahlVorgänger);
         }
 
         internal static void TopologischSortieren(Graph graph, Dictionary<int, int> vorgaenger, Action<Contracts.Gewichtung> ok, Action fehler)

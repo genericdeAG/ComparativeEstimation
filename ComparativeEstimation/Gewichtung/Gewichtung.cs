@@ -12,7 +12,9 @@ namespace Gewichtung
         {
             var relationen = Relationen_erstellen(voting, vergleichspaare);
             var graph = GraphGenerator.Graph_erstellen(relationen);
-            GraphGenerator.Sortieren(graph, ok, fehler);
+            GraphGenerator.Sortieren(graph,
+                ok,
+                fehler);
         }
 
         internal static IEnumerable<IndexTupel> Relationen_erstellen(IEnumerable<GewichtetesVergleichspaarDto> voting, IEnumerable<Vergleichspaar> vergleichspaare)
