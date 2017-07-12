@@ -118,5 +118,22 @@ namespace Gewichtung.Tests
             tuple.Weniger.ShouldBe(weniger);
             tuple.Wichtiger.ShouldBe(wichtiger);
         }
+
+        [Fact]
+        public void Gesamtgewichtung_berechne_richtig()
+        {
+            var gewichtungen = new List<Contracts.Gewichtung>()
+            {
+                new Contracts.Gewichtung() {StoryIndizes = new List<int> {2, 0, 1}},
+                new Contracts.Gewichtung() {StoryIndizes = new List<int> {1, 2, 0}},
+                new Contracts.Gewichtung() {StoryIndizes = new List<int> {2, 1, 0}},
+            };
+
+            var sut = new Gewichtung();
+
+            var result = sut.Gesamtgewichtung_berechne(gewichtungen);
+
+            result.StoryIndizes.ShouldBe(new[] {2, 1, 0});
+        }
     }
 }
