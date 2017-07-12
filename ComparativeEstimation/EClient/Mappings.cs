@@ -1,4 +1,5 @@
 ﻿using Contracts;
+using Vergleichspaar = EClient.Models.Vergleichspaar;
 
 namespace EClient
 {

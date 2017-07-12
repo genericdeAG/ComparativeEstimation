@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EClient"
         xmlns:converters="clr-namespace:EClient.Converters"
+        xmlns:viewModels="clr-namespace:EClient.ViewModels"
+        xmlns:models="clr-namespace:EClient.Models"
         mc:Ignorable="d"
         Title="EClient" Height="350" Width="525"
-        d:DataContext="{local:VergleichspaarViewModel}">
+        d:DataContext="{viewModels:VergleichspaarViewModel}">
 
     <Window.Resources>
         <ResourceDictionary>
             <converters:SelektionConverter x:Key="SelektionConverter"/>
-            <DataTemplate x:Key="VergleichspaarTemplate" DataType="local:Vergleichspaar">
+            <DataTemplate x:Key="VergleichspaarTemplate" DataType="models:Vergleichspaar">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

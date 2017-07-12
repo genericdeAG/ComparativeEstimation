@@ -98,8 +98,8 @@
     <Compile Include="Mappings.cs" />
     <Compile Include="CesDummy.cs" />
     <Compile Include="Tests\VergleichspaarViewModelTests.cs" />
-    <Compile Include="Vergleichspaar.cs" />
-    <Compile Include="VergleichspaarViewModel.cs" />
+    <Compile Include="Models\Vergleichspaar.cs" />
+    <Compile Include="ViewModels\VergleichspaarViewModel.cs" />
     <Compile Include="WpfPortal.xaml.cs">
       <DependentUpon>WpfPortal.xaml</DependentUpon>
       <SubType>Code</SubType>

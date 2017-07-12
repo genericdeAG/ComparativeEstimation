@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Contracts;
+using EClient.ViewModels;
 
 namespace EClient
 {

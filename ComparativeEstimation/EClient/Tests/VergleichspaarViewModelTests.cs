@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Contracts;
+using EClient.ViewModels;
 using NSubstitute;
 using Shouldly;
 using Xunit;

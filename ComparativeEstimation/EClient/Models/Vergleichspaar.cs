@@ -1,6 +1,6 @@
 ﻿using Contracts;
 
-namespace EClient
+namespace EClient.Models
 {
     public class Vergleichspaar
     {

@@ -3,8 +3,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Contracts;
+using Vergleichspaar = EClient.Models.Vergleichspaar;
 
-namespace EClient
+namespace EClient.ViewModels
 {
     public class VergleichspaarViewModel
     {
