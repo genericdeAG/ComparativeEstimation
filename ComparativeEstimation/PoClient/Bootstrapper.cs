@@ -6,7 +6,6 @@ using Prism.Unity;
 
 namespace PoClient
 {
-
     class Bootstrapper : UnityBootstrapper
     {
         protected override void ConfigureContainer()

@@ -9,16 +9,16 @@ namespace PoClient.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        private readonly ICes restProvider;
+        private readonly ICes _restProvider;
 
         public ObservableCollection<string> Stories { get; } = new ObservableCollection<string>();
 
-        private string currentStory;
+        private string _currentStory;
 
         public string CurrentStory
         {
-            get => currentStory;
-            set => SetProperty(ref currentStory, value);
+            get => _currentStory;
+            set => SetProperty(ref _currentStory, value);
         }
         
         public Action CloseWindow { get; set; }
@@ -28,7 +28,7 @@ namespace PoClient.ViewModels
 
         public MainWindowViewModel(ICes restProvider)
         {
-            this.restProvider = restProvider;
+            _restProvider = restProvider;
 
             AddStoryCommand = new DelegateCommand(AddStory);
             StartCommand = new DelegateCommand(Start);
@@ -44,12 +44,12 @@ namespace PoClient.ViewModels
 
         public void Reset()
         {
-            restProvider.Sprint_lösche();
+            _restProvider.Sprint_lösche();
         }
 
         public void Start()
         {
-            restProvider.Sprint_âlege(Stories);
+            _restProvider.Sprint_âlege(Stories);
             new GesamtGewichtungView().Show();
             CloseWindow?.Invoke();
         }

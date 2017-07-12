@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Timers;
-using System.Windows.Threading;
 using Contracts;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -10,14 +8,14 @@ namespace PoClient.ViewModels
 {
     public class GesamtGewichtungViewModel : BindableBase
     {
-        private ICes restProvider;
+        private readonly ICes _restProvider;
 
-        private string votingCounterText;
+        private string _votingCounterText;
 
         public string VotingCounterText
         {
-            get => votingCounterText;
-            set => SetProperty(ref votingCounterText, value);
+            get => _votingCounterText;
+            set => SetProperty(ref _votingCounterText, value);
         }
 
         public ObservableCollection<string> Gesamtgewichtung { get; } = new ObservableCollection<string>();
@@ -26,14 +24,15 @@ namespace PoClient.ViewModels
 
         public GesamtGewichtungViewModel(ICes restProvider)
         {
-            this.restProvider = restProvider;
+            _restProvider = restProvider;
 
             RefreshCommand = new DelegateCommand(Refresh);
+            Refresh();
         }
 
         public void Refresh()
         {
-            var gesamtgewichtung = restProvider.Gesamtgewichtung ?? new GesamtgewichtungDto
+            var gesamtgewichtung = _restProvider.Gesamtgewichtung ?? new GesamtgewichtungDto
             {
                 Stories = Array.Empty<string>()
             };

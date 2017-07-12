@@ -22,13 +22,13 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="US"/>
-        
-        <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Stories}" MinHeight="300"/>
-        
-        <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding CurrentStory, Mode=TwoWay}"/>
-        <Button Grid.Row="2" Grid.Column="1" Content="Add" Command="{Binding AddStoryCommand}"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="User Stories" Style="{StaticResource TextBlock_Default}"/>
 
-        <Button Grid.Row="3" Content="Start" Command="{Binding StartCommand}"/>
+        <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Stories}" MinHeight="300" Style="{StaticResource ListBox_Default}"/>
+
+        <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding CurrentStory, Mode=TwoWay}" Style="{StaticResource TextBox_Default}"/>
+        <Button Grid.Row="2" Grid.Column="1" Content="Add" Command="{Binding AddStoryCommand}" Style="{StaticResource Button_Default}"/>
+
+        <Button Grid.Row="3" Content="Start" Command="{Binding StartCommand}" Style="{StaticResource Button_Default}"/>
     </Grid>
 </Window>

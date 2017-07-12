@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         mvvm:ViewModelLocator.AutoWireViewModel="True"
         Title="GesamtGewichtungView" Height="300" Width="300">
-    <Grid>
+    <Grid Margin="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -16,12 +16,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Gesamtgewichtung"/>
+        <TextBlock Grid.Row="0" Text="Gesamtgewichtung" Style="{StaticResource TextBlock_Default}"/>
 
-        <Button Grid.Row="1" Content="Refresh" Command="{Binding RefreshCommand}"/>
-        
-        <ListBox Grid.Row="2" ItemsSource="{Binding Gesamtgewichtung}"/>
+        <Button Grid.Row="1" Content="Refresh" Command="{Binding RefreshCommand}" Style="{StaticResource Button_Default}"/>
 
-        <TextBlock Grid.Row="3" Text="{Binding VotingCounterText}"/>
+        <ListBox Grid.Row="2" ItemsSource="{Binding Gesamtgewichtung}" Style="{StaticResource ListBox_Default}"/>
+
+        <TextBlock Grid.Row="3" Text="{Binding VotingCounterText}" Style="{StaticResource TextBlock_Footer}"/>
     </Grid>
 </Window>

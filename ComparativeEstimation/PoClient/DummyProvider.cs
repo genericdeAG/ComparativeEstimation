@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Contracts;
-using System.Linq;
 
 namespace PoClient
 {
@@ -11,10 +10,12 @@ namespace PoClient
 
         public void Âmelde(string id)
         {
+            throw new NotImplementedException();
         }
 
         public void Gewichtung_regischtriere(IEnumerable<GewichtetesVergleichspaarDto> voting, Action ok, Action fehler)
         {
+            throw new NotImplementedException();
         }
 
         public GesamtgewichtungDto Gesamtgewichtung
@@ -33,7 +34,7 @@ namespace PoClient
             }
         }
 
-        public IEnumerable<VergleichspaarDto> Vergleichspaare { get; }
+        public IEnumerable<VergleichspaarDto> Vergleichspaare => throw new NotImplementedException();
 
         public void Sprint_âlege(IEnumerable<string> stories)
         {

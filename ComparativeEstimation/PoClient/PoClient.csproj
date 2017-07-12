@@ -100,6 +100,10 @@
     <Compile Include="Test\MainWindowViewModelTest.cs" />
     <Compile Include="ViewModels\GesamtGewichtungViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Page Include="Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GesamtGewichtungView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
