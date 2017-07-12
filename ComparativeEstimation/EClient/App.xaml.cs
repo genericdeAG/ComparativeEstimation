@@ -1,5 +1,7 @@
 ﻿using System.Windows;
+using CeServerProvider;
 using Contracts;
+using EClient.Properties;
 using Microsoft.Practices.Unity;
 
 namespace EClient
@@ -20,7 +22,8 @@ namespace EClient
 
         private void InitializeRegistrations()
         {
-            unityContainer.RegisterInstance<ICes>(new CesDummy());
+            var serverAdresse = Settings.Default.ServerAdresse;
+            unityContainer.RegisterInstance<ICes>(new RestProvider(serverAdresse));
         }
 
         public static T Resolve<T>()
