@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:EClient"
         xmlns:converters="clr-namespace:EClient.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525"
+        d:DataContext="{local:VergleichspaarViewModel}">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -29,6 +30,6 @@
         <ListBox Grid.Row="0"
                  ItemsSource="{Binding Vergleichspaare}"
                  ItemTemplate="{StaticResource VergleichspaarTemplate}"/>
-        <Button Grid.Row="1" Content="OK" />
+        <Button Grid.Row="1" Content="OK" Command="{Binding OkCommand}"/>
     </Grid>
 </Window>
