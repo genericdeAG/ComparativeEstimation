@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Timers;
+using System.Windows.Threading;
 using Contracts;
+using Prism.Commands;
 using Prism.Mvvm;
 
 namespace PoClient.ViewModels
@@ -20,26 +22,21 @@ namespace PoClient.ViewModels
 
         public ObservableCollection<string> Gesamtgewichtung { get; } = new ObservableCollection<string>();
 
-        public GesamtGewichtungViewModel()
+        public DelegateCommand RefreshCommand { get; }
+
+        public GesamtGewichtungViewModel(ICes restProvider)
         {
-            restProvider = App.Resolve<ICes>();
-            var timer1 = new Timer();
-            timer1.Elapsed += (s, e) =>
-            {
-                Refresh();
-            };
-            timer1.Interval = 1000;
-            timer1.Start();
+            this.restProvider = restProvider;
+
+            RefreshCommand = new DelegateCommand(Refresh);
         }
 
         public void Refresh()
         {
-            var gesamtgewichtung = restProvider.Gesamtgewichtung;
-            if (gesamtgewichtung == null)
+            var gesamtgewichtung = restProvider.Gesamtgewichtung ?? new GesamtgewichtungDto
             {
-                gesamtgewichtung = new GesamtgewichtungDto();
-            }
-
+                Stories = Array.Empty<string>()
+            };
 
             VotingCounterText = $"{gesamtgewichtung.Gewichtungen} / {gesamtgewichtung.Anmeldungen}";
             Gesamtgewichtung.Clear();

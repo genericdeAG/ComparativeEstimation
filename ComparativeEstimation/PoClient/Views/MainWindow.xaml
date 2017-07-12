@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:PoClient"
         xmlns:mvvm="http://prismlibrary.com/"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        mvvm:ViewModelLocator.AutoWireViewModel="True"
+        Title="MainWindow" Height="350" Width="525"
+        Loaded="OnLoaded">
+    
     <Grid Margin="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

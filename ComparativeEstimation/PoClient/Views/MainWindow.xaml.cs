@@ -8,7 +8,11 @@ namespace PoClient.Views
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel();
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            (this.DataContext as MainWindowViewModel).CloseWindow = this.Close;
         }
     }
 }

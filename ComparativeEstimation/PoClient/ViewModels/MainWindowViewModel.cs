@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using Contracts;
+using PoClient.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -19,16 +21,18 @@ namespace PoClient.ViewModels
             set => SetProperty(ref currentStory, value);
         }
         
+        public Action CloseWindow { get; set; }
+
         public DelegateCommand AddStoryCommand { get; }
         public DelegateCommand StartCommand { get; }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(ICes restProvider)
         {
+            this.restProvider = restProvider;
+
             AddStoryCommand = new DelegateCommand(AddStory);
             StartCommand = new DelegateCommand(Start);
-
-            restProvider = App.Resolve<ICes>();
-
+            
             Reset();
         }
 
@@ -45,6 +49,8 @@ namespace PoClient.ViewModels
         public void Start()
         {
             restProvider.Sprint_âlege(Stories);
+            new GesamtGewichtungView().Show();
+            CloseWindow?.Invoke();
         }
     }
 }

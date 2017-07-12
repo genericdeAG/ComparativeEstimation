@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="DummyProvider.cs" />
     <Compile Include="ViewModels\GesamtGewichtungViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

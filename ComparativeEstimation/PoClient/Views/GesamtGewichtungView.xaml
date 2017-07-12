@@ -4,19 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PoClient.Views"
+        xmlns:mvvm="http://prismlibrary.com/"
         mc:Ignorable="d"
+        mvvm:ViewModelLocator.AutoWireViewModel="True"
         Title="GesamtGewichtungView" Height="300" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
+
         <TextBlock Grid.Row="0" Text="Gesamtgewichtung"/>
+
+        <Button Grid.Row="1" Content="Refresh" Command="{Binding RefreshCommand}"/>
         
-        <ListBox Grid.Row="1"/>
-        
-        <TextBlock Grid.Row="2"/>
+        <ListBox Grid.Row="2" ItemsSource="{Binding Gesamtgewichtung}"/>
+
+        <TextBlock Grid.Row="3" Text="{Binding VotingCounterText}"/>
     </Grid>
 </Window>
