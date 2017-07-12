@@ -38,6 +38,18 @@ namespace Gewichtung.Tests
         }
 
         [Fact]
+        public void GesamtgewichtungBerechnen_nochKeineVotings_leereListe()
+        {
+            var sut = new global::Gewichtung.Gewichtung();
+
+            var result = sut.Gesamtgewichtung_berechne(new List<Contracts.Gewichtung>());
+            result.StoryIndizes.ShouldBeEmpty();
+
+            result = sut.Gesamtgewichtung_berechne(null);
+            result.StoryIndizes.ShouldBeEmpty();
+        }
+
+        [Fact]
         public void Gewichtung_berechnen_FehlerTrittAuf()
         {
             var voting = new List<GewichtetesVergleichspaarDto>()

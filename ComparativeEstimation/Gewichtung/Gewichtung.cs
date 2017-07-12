@@ -34,6 +34,11 @@ namespace Gewichtung
 
         public Contracts.Gewichtung Gesamtgewichtung_berechne(IEnumerable<Contracts.Gewichtung> gewichtungen)
         {
+            if (gewichtungen == null || !gewichtungen.Any())
+            {
+                return new Contracts.Gewichtung();
+            }
+
             var scorecard = Scorecard_erzeugen(gewichtungen);
 
             return Gesamtgewichtung_erzeugen(scorecard);

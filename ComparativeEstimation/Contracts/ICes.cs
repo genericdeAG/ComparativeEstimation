@@ -67,6 +67,10 @@ namespace Contracts
 
     public class Gewichtung
     {
+        public Gewichtung()
+        {
+            StoryIndizes = new List<int>();
+        }
         public IEnumerable<int> StoryIndizes { get; set; }
     }
 }
