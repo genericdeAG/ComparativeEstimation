@@ -2,7 +2,7 @@
 {
     public class IndexTupel
     {
-        public int Wichter { get; set; }
+        public int Wichtiger { get; set; }
         public int Weniger { get; set; }
     }
 }

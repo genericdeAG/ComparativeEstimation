@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Gewichtung.Model;
 using Shouldly;
 using Xunit;
@@ -86,6 +87,35 @@ namespace Gewichtung.Tests
                 dict,
                 g => {g.StoryIndizes.ShouldBe(new [] {2,0,1});},
                 () => Assert.False(true, "Unerwarteter Fehler"));
+        }
+
+        [Fact]
+        public void GraphErstellen()
+        {
+            var tuples = new List<IndexTupel>
+            {
+                new IndexTupel
+                {
+                    Wichtiger = 0,
+                    Weniger = 1,
+                },
+                new IndexTupel
+                {
+                    Wichtiger = 2,
+                    Weniger = 0,
+                },
+                new IndexTupel
+                {
+                    Wichtiger = 2,
+                    Weniger = 1,
+                },
+            };
+            var graph = GraphGenerator.Graph_erstellen(tuples);
+
+            graph.Knoten.Count.ShouldBe(3);
+            graph.Knoten[0].Nachfolger.Select(n => n.Index).ShouldBe(new [] {1});
+            graph.Knoten[1].Nachfolger.Select(n => n.Index).Count().ShouldBe(0);
+            graph.Knoten[2].Nachfolger.Select(n => n.Index).ShouldBe(new [] {0,1});
         }
     }
 }

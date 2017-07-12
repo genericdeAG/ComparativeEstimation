@@ -10,7 +10,32 @@ namespace Gewichtung
     {
         public static Graph Graph_erstellen(IEnumerable<IndexTupel> relationen)
         {
-            throw new NotImplementedException();
+            var graph = new Graph();
+
+            foreach (var relation in relationen)
+            {
+                var wichtiger = HoleOderErstelleKnoten(graph, relation.Wichtiger);
+                var weniger = HoleOderErstelleKnoten(graph, relation.Weniger);
+
+                wichtiger.Nachfolger.Add(weniger);
+            }
+
+            return graph;
+        }
+
+
+
+        private static Knoten HoleOderErstelleKnoten(Graph graph, int index)
+        {
+            var knoten = graph.Knoten.FirstOrDefault(k => k.Index == index);
+
+            if (knoten == null)
+            {
+                knoten = new Knoten{Index = index};
+                graph.Knoten.Add(knoten);
+            }
+
+            return knoten;
         }
 
         public static void Sortieren(Graph graph, Action<Contracts.Gewichtung> ok, Action fehler)
@@ -55,7 +80,7 @@ namespace Gewichtung
                 }
             }
 
-            ok(new Contracts.Gewichtung{StoryIndizes = storyIndizes});
+            ok(new Contracts.Gewichtung { StoryIndizes = storyIndizes });
         }
     }
 }
