@@ -34,7 +34,7 @@ namespace Gewichtung
         {
             var scorecard = Scorecard_erzeugen(gewichtungen);
 
-            return new Contracts.Gewichtung{ StoryIndizes = scorecard.OrderBy(pair => pair.Value).Select(pair => pair.Key)};
+            return Gesamtgewichtung_erzeugen(scorecard);
         }
 
         private static Dictionary<int, int> Scorecard_erzeugen(IEnumerable<Contracts.Gewichtung> gewichtungen)
@@ -74,6 +74,11 @@ namespace Gewichtung
             {
                 scorecard[keyValuePair.Key] += keyValuePair.Value;
             }
+        }
+
+        private static Contracts.Gewichtung Gesamtgewichtung_erzeugen(Dictionary<int, int> scorecard)
+        {
+            return new Contracts.Gewichtung { StoryIndizes = scorecard.OrderBy(pair => pair.Value).Select(pair => pair.Key) };
         }
     }
 }
