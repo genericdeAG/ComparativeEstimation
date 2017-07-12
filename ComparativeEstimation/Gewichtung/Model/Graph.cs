@@ -4,6 +4,10 @@ namespace Gewichtung.Model
 {
     public class Graph
     {
-        public IList<Knoten> Nachfolger { get; set; }
+        public Graph()
+        {
+            Knoten = new List<Knoten>();
+        }
+        public IList<Knoten> Knoten { get; set; }
     }
 }
