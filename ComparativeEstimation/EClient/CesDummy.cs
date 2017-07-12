@@ -35,6 +35,54 @@ namespace EClient
                         A = "Story1",
                         B = "Story3",
                         Id = "1"
+                    },
+                    new VergleichspaarDto
+                    {
+                        A = "Story1",
+                        B = "Story2",
+                        Id = "0"
+                    },
+                    new VergleichspaarDto
+                    {
+                        A = "Story1",
+                        B = "Story3",
+                        Id = "1"
+                    },
+                    new VergleichspaarDto
+                    {
+                        A = "Story1",
+                        B = "Story2",
+                        Id = "0"
+                    },
+                    new VergleichspaarDto
+                    {
+                        A = "Story1",
+                        B = "Story3",
+                        Id = "1"
+                    },
+                    new VergleichspaarDto
+                    {
+                        A = "Story1",
+                        B = "Story2",
+                        Id = "0"
+                    },
+                    new VergleichspaarDto
+                    {
+                        A = "Story1",
+                        B = "Story3",
+                        Id = "1"
+                    },
+                    new VergleichspaarDto
+                    {
+                        A = "Story1",
+                        B = "Story2",
+                        Id = "0"
+                    },
+                    new VergleichspaarDto
+                    {
+                        A = "Story1",
+                        B = "Story3",
+                        Id = "1"
                     }
                 };
             }

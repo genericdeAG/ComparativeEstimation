@@ -13,12 +13,23 @@
         <ResourceDictionary>
             <converters:SelektionConverter x:Key="SelektionConverter"/>
             <DataTemplate x:Key="VergleichspaarTemplate" DataType="local:Vergleichspaar">
-                <StackPanel>
-                    <RadioButton Content="{Binding A}"
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <RadioButton Grid.Row="0" 
+                                 Content="{Binding A}"
                                  IsChecked="{Binding Selektion, Converter={StaticResource SelektionConverter}, ConverterParameter='A'}"/>
-                    <RadioButton Content="{Binding B}" 
+                    <RadioButton Grid.Row="1" 
+                                 Content="{Binding B}" 
                                  IsChecked="{Binding Selektion, Converter={StaticResource SelektionConverter}, ConverterParameter='B'}"/>
-                </StackPanel>
+                    <Separator Grid.Row="2" Width="475"/>
+                </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
