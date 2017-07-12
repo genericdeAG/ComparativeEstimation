@@ -1,55 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Contracts;
+﻿using Contracts;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using PoClient.ViewModels;
-using Xunit;
 
 namespace PoClient.Test
 {
+    [TestClass]
     public class GesamtGewichtungViewModelTest
     {
-        [Fact]
-        public void RefreshVotingCounterTextTest()
+        private ICes _provider;
+        private GesamtgewichtungDto _dto;
+        private GesamtGewichtungViewModel _ut;
+
+        [TestInitialize]
+        public void SetUp()
         {
-            var provider = Substitute.For<ICes>();
-            var dto = GetTestDto();
-            provider.Gesamtgewichtung.Returns(dto);
-
-            var ut = new GesamtGewichtungViewModel(provider);
-            ut.Refresh();
-
-            Assert.Equal($"{dto.Gewichtungen} / {dto.Anmeldungen}", ut.VotingCounterText);
-        }
-
-        [Fact]
-        public void RefreshGesamtgewichtungenTest()
-        {
-            var provider = Substitute.For<ICes>();
-            var dto = GetTestDto();
-            provider.Gesamtgewichtung.Returns(dto);
-
-            var ut = new GesamtGewichtungViewModel(provider);
-            ut.Refresh();
-            
-            Assert.Equal(ut.Gesamtgewichtung.Count, dto.Stories.Length);
-            for (int i = 0; i < dto.Stories.Length; i++)
-            {
-                Assert.Equal(ut.Gesamtgewichtung[i], dto.Stories[i]);
-            }
-        }
-
-        private GesamtgewichtungDto GetTestDto()
-        {
-            return new GesamtgewichtungDto()
+            _provider = Substitute.For<ICes>();
+            _dto = new GesamtgewichtungDto()
             {
                 Anmeldungen = 8,
                 Gewichtungen = 3,
                 Stories = new[] { "Story B", "Story C", "Story A" }
             };
+            _provider.Gesamtgewichtung.Returns(_dto);
+            _ut = new GesamtGewichtungViewModel(_provider);
+        }
+
+        [TestMethod]
+        public void RefreshVotingCounterTextTest()
+        {
+            _ut.Refresh();
+
+            Assert.AreEqual($"{_dto.Gewichtungen} / {_dto.Anmeldungen}", _ut.VotingCounterText);
+        }
+
+        [TestMethod]
+        public void RefreshGesamtgewichtungenTest()
+        {
+            _ut.Refresh();
+            
+            Assert.AreEqual(_ut.Gesamtgewichtung.Count, _dto.Stories.Length);
+            for (int i = 0; i < _dto.Stories.Length; i++)
+            {
+                Assert.AreEqual(_ut.Gesamtgewichtung[i], _dto.Stories[i]);
+            }
         }
     }
 }
