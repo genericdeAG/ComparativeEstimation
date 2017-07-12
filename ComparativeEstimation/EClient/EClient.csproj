@@ -55,7 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="WpfPortal.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,8 +63,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Converters\SelektionConverter.cs" />
+    <Compile Include="Vergleichspaar.cs" />
+    <Compile Include="VergleichspaarViewModel.cs" />
+    <Compile Include="WpfPortal.xaml.cs">
+      <DependentUpon>WpfPortal.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

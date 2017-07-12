@@ -1,0 +1,34 @@
+﻿<Window x:Class="EClient.WpfPortal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EClient"
+        xmlns:converters="clr-namespace:EClient.Converters"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <converters:SelektionConverter x:Key="SelektionConverter"/>
+            <DataTemplate x:Key="VergleichspaarTemplate" DataType="local:Vergleichspaar">
+                <StackPanel>
+                    <RadioButton Content="{Binding A}"
+                                 IsChecked="{Binding Selektion, Converter={StaticResource SelektionConverter}, ConverterParameter='A'}"/>
+                    <RadioButton Content="{Binding B}" 
+                                 IsChecked="{Binding Selektion, Converter={StaticResource SelektionConverter}, ConverterParameter='B'}"/>
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListBox Grid.Row="0"
+                 ItemsSource="{Binding Vergleichspaare}"
+                 ItemTemplate="{StaticResource VergleichspaarTemplate}"/>
+        <Button Grid.Row="1" Content="OK" />
+    </Grid>
+</Window>
