@@ -5,16 +5,38 @@ namespace Contracts
 {
     public interface ICes
     {
-        void Anmeldung(string id);
+        void Âmelde(string id);
 
-        void GewichteteVergleichspaare(IEnumerable<GewichtetesVergleichspaar> gewichteteVergleichspaare, Action ok, Action fehler);
+        void Gewichtung_regischtriere(IEnumerable<GewichtetesVergleichspaarDto> voting, Action ok, Action fehler);
 
-        Gesamtgewichtung Gesamtgewichtung();
+        GesamtgewichtungDto Gesamtgewichtung { get; }
 
-        void Storyliste(IEnumerable<string> stories);
+        IEnumerable<VergleichspaarDto> Vergleichspaare { get; }
+
+        void Sprint_âlege(IEnumerable<string> stories);
+
+        void Sprint_lösche();
     }
 
-    public class Gesamtgewichtung
+    public class VergleichspaarDto
+    {
+        public string A { get; set; }
+
+        public string B { get; set; }
+
+        public string Id { get; set; }
+    }
+
+    public class Vergleichspaar
+    {
+        public int IndexA { get; set; }
+
+        public int IndexB { get; set; }
+
+        public string Id { get; set; }
+    }
+
+    public class GesamtgewichtungDto
     {
         public string[] Stories { get; set; }
 
@@ -23,16 +45,28 @@ namespace Contracts
         public int Gewichtungen { get; set; }
     }
 
-    public class GewichtetesVergleichspaar
+    public class GewichtetesVergleichspaarDto
     {
         public string Id { get; set; }
 
-        public Selection Selection { get; set; }
+        public Selektion Selektion { get; set; }
     }
 
-    public enum Selection
+    public enum Selektion
     {
         A,
         B
+    }
+
+    public interface IGewichtung
+    {
+        void Gewichtung_berechne(IEnumerable<GewichtetesVergleichspaarDto> voting, IEnumerable<Vergleichspaar>  vergleichspaare, Action<Gewichtung> ok, Action fehler);
+
+        Gewichtung Gesamtgewichtung_berechne(IEnumerable<Gewichtung> gewichtungen);
+    }
+
+    public class Gewichtung
+    {
+        public IEnumerable<int> StoryIndizes { get; set; }
     }
 }
