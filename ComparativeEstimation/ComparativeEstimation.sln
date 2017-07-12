@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{53B0DADB-1800-4BC0-897D-DD0AD9FDC0B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{53B0DADB-1800-4BC0-897D-DD0AD9FDC0B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CeServer", "CeServer\CeServer.csproj", "{35F1CA1F-4E99-4798-B6B5-74105B4E2318}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CeServer", "CeServer\CeServer.csproj", "{35F1CA1F-4E99-4798-B6B5-74105B4E2318}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoClient", "PoClient\PoClient.csproj", "{4C68849C-356F-454E-B320-CA17B44ACD07}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EClient", "EClient\EClient.csproj", "{72AE8CD9-326D-428F-B136-6541988250CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CeDomain", "CeDomain\CeDomain.csproj", "{AFD2DD14-D794-4A92-9306-1BC7812242CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CeDomain", "CeDomain\CeDomain.csproj", "{AFD2DD14-D794-4A92-9306-1BC7812242CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CeServerProvider", "CeServerProvider\CeServerProvider.csproj", "{56031106-1D87-4E5A-B1C6-FC87B7546421}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gewichtung", "Gewichtung\Gewichtung.csproj", "{7CDE790C-F48F-47FF-B272-B2128EF6449F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{56031106-1D87-4E5A-B1C6-FC87B7546421}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56031106-1D87-4E5A-B1C6-FC87B7546421}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56031106-1D87-4E5A-B1C6-FC87B7546421}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CDE790C-F48F-47FF-B272-B2128EF6449F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CDE790C-F48F-47FF-B272-B2128EF6449F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CDE790C-F48F-47FF-B272-B2128EF6449F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CDE790C-F48F-47FF-B272-B2128EF6449F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
