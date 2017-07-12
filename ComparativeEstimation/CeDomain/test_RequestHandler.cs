@@ -9,27 +9,27 @@ namespace CeDomain
         [Test]
         public void Anmelden()
         {
-            var state = new RequestHandlerState();
+            var state = new RequestHandler.State();
             var sut = new RequestHandler(null, state);
 
             sut.Âmelde("1");
-            Assert.AreEqual(1, state.anmeldungen.Count);
+            Assert.AreEqual(1, state.Anmeldungen.Count);
 
             sut.Âmelde("2");
-            Assert.AreEqual(2, state.anmeldungen.Count);
+            Assert.AreEqual(2, state.Anmeldungen.Count);
         }
 
         [Test]
         public void Anmelden_idempotent()
         {
-            var state = new RequestHandlerState();
+            var state = new RequestHandler.State();
             var sut = new RequestHandler(null, state);
 
             sut.Âmelde("1");
-            Assert.AreEqual(1, state.anmeldungen.Count);
+            Assert.AreEqual(1, state.Anmeldungen.Count);
 
             sut.Âmelde("1");
-            Assert.AreEqual(1, state.anmeldungen.Count);
+            Assert.AreEqual(1, state.Anmeldungen.Count);
         }
     }
 }
