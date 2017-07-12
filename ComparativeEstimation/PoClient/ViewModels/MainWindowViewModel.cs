@@ -9,7 +9,7 @@ namespace PoClient.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        private ICes restProvider;
+        private readonly ICes restProvider;
 
         public ObservableCollection<string> Stories { get; } = new ObservableCollection<string>();
 
@@ -39,6 +39,7 @@ namespace PoClient.ViewModels
         public void AddStory()
         {
             Stories.Add(CurrentStory);
+            CurrentStory = string.Empty;
         }
 
         public void Reset()
