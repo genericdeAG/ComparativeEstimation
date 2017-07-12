@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EClient"
         xmlns:converters="clr-namespace:EClient.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"
+        Title="EClient" Height="350" Width="525"
         d:DataContext="{local:VergleichspaarViewModel}">
 
     <Window.Resources>

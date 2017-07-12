@@ -14,7 +14,7 @@ namespace EClient
         {
             this.ces = ces;
 
-            this.OkCommand = new Command(this.Ok);
+            this.OkCommand = new Command(this.Submit);
 
             Lade_Vergleichspaare();
         }
@@ -28,7 +28,7 @@ namespace EClient
             this.Vergleichspaare = new ObservableCollection<Vergleichspaar>(this.ces.Vergleichspaare.Select(Mappings.MapVergleichspaar));
         }
 
-        private void Ok()
+        private void Submit()
         {
             var votings = this.Vergleichspaare.Select(Mappings.MapGewichtetesVergleichspaar);
             this.ces.Gewichtung_regischtriere(votings, Registrieung_erfolgreich, Registrieung_fehlgeschlagen);

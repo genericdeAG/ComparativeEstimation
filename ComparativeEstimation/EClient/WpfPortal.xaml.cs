@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Contracts;
 
 namespace EClient
 {
@@ -10,7 +11,7 @@ namespace EClient
         public WpfPortal()
         {
             InitializeComponent();
-            base.DataContext = new VergleichspaarViewModel(new CesDummy());
+            base.DataContext = new VergleichspaarViewModel(App.Resolve<ICes>());
         }
     }
 }
