@@ -8,7 +8,7 @@ namespace EClient
     {
         public void Âmelde(string id)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void Gewichtung_regischtriere(IEnumerable<GewichtetesVergleichspaarDto> voting, Action ok, Action fehler)

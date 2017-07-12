@@ -1,8 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using Contracts;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using Contracts;
 using Vergleichspaar = EClient.Models.Vergleichspaar;
 
 namespace EClient.ViewModels
@@ -17,7 +18,13 @@ namespace EClient.ViewModels
 
             this.OkCommand = new Command(this.Submit);
 
+            Anmelden();
             Lade_Vergleichspaare();
+        }
+
+        private void Anmelden()
+        {
+            this.ces.Âmelde(Guid.NewGuid().ToString());
         }
 
         public ObservableCollection<Vergleichspaar> Vergleichspaare { get; set; }
@@ -32,7 +39,9 @@ namespace EClient.ViewModels
         private void Submit()
         {
             var votings = this.Vergleichspaare.Select(Mappings.MapGewichtetesVergleichspaar);
-            this.ces.Gewichtung_regischtriere(votings, Registrieung_erfolgreich, Registrieung_fehlgeschlagen);
+            this.ces.Gewichtung_regischtriere(votings, 
+                Registrieung_erfolgreich, 
+                Registrieung_fehlgeschlagen);
         }
 
         private void Registrieung_erfolgreich()
