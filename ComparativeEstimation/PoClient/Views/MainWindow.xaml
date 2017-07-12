@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PoClient"
+        xmlns:mvvm="http://prismlibrary.com/"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid Margin="4">
@@ -25,6 +26,6 @@
         <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding CurrentStory, Mode=TwoWay}"/>
         <Button Grid.Row="2" Grid.Column="1" Content="Add" Command="{Binding AddStoryCommand}"/>
 
-        <Button Grid.Row="3" Content="Start"/>
+        <Button Grid.Row="3" Content="Start" Command="{Binding StartCommand}"/>
     </Grid>
 </Window>

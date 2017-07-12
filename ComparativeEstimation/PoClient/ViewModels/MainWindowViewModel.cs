@@ -19,11 +19,17 @@ namespace PoClient.ViewModels
             set => SetProperty(ref currentStory, value);
         }
         
-        public DelegateCommand AddStoryCommand { get; private set; }
+        public DelegateCommand AddStoryCommand { get; }
+        public DelegateCommand StartCommand { get; }
 
         public MainWindowViewModel()
         {
             AddStoryCommand = new DelegateCommand(AddStory);
+            StartCommand = new DelegateCommand(Start);
+
+            restProvider = App.Resolve<ICes>();
+
+            Reset();
         }
 
         public void AddStory()
@@ -34,6 +40,11 @@ namespace PoClient.ViewModels
         public void Reset()
         {
             restProvider.Sprint_lösche();
+        }
+
+        public void Start()
+        {
+            restProvider.Sprint_âlege(Stories);
         }
     }
 }
