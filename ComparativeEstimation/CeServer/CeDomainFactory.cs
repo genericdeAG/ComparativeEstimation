@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CeDomain;
 using Contracts;
+
+
 
 namespace CeServer
 {
@@ -13,7 +16,8 @@ namespace CeServer
         {
             if (_ices == null)
             {
-                _ices = new FakeCeDomain();
+
+                _ices = new RequestHandler(new Gewichtung.Gewichtung());
             }
 
             return _ices;
