@@ -1,34 +1,35 @@
 ﻿using System;
-using Xunit;
+using NUnit.Framework;
 
 namespace CeDomain
 {
+    [TestFixture]
     public class test_RequestHandler
     {
-        [Fact]
+        [Test]
         public void Anmelden()
         {
             var state = new RequestHandler.State();
             var sut = new RequestHandler(null, state);
 
             sut.Âmelde("1");
-            Assert.Equal(1, state.Anmeldungen.Count);
+            Assert.AreEqual(1, state.Anmeldungen.Count);
 
             sut.Âmelde("2");
-            Assert.Equal(2, state.Anmeldungen.Count);
+            Assert.AreEqual(2, state.Anmeldungen.Count);
         }
 
-        [Fact]
+        [Test]
         public void Anmelden_idempotent()
         {
             var state = new RequestHandler.State();
             var sut = new RequestHandler(null, state);
 
             sut.Âmelde("1");
-            Assert.Equal(1, state.Anmeldungen.Count);
+            Assert.AreEqual(1, state.Anmeldungen.Count);
 
             sut.Âmelde("1");
-            Assert.Equal(1, state.Anmeldungen.Count);
+            Assert.AreEqual(1, state.Anmeldungen.Count);
         }
     }
 }

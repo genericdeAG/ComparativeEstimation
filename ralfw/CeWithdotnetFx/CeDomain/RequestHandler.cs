@@ -19,8 +19,9 @@ namespace CeDomain
         private State state;
 
 
-        public RequestHandler(IGewichtung gewichter) : this(gewichter, new State()) {}
-        internal RequestHandler(IGewichtung gewichter, State state) {
+        public RequestHandler(IGewichtung gewichter) : this(gewichter, new State()) { }
+        internal RequestHandler(IGewichtung gewichter, State state)
+        {
             this.gewichter = gewichter;
             this.state = state;
         }
@@ -46,10 +47,12 @@ namespace CeDomain
         {
             for (var indexA = 0; indexA < numberOfStories; indexA++)
                 for (var indexB = indexA + 1; indexB < numberOfStories; indexB++)
-                    yield return new Vergleichspaar { 
-                                        Id = (100 * indexA + indexB).ToString(), 
-                                        IndexA = indexA, 
-                                        IndexB = indexB };
+                    yield return new Vergleichspaar
+                    {
+                        Id = (100 * indexA + indexB).ToString(),
+                        IndexA = indexA,
+                        IndexB = indexB
+                    };
         }
 
 
@@ -61,17 +64,19 @@ namespace CeDomain
 
 
         public IEnumerable<VergleichspaarDto> Vergleichspaare
-            => this.state.Vergleichspaare.Select(vp => new VergleichspaarDto {
-	                Id = vp.Id,
-	                A = this.state.Stories[vp.IndexA],
-	                B = this.state.Stories[vp.IndexB]
-	            });
+            => this.state.Vergleichspaare.Select(vp => new VergleichspaarDto
+            {
+                Id = vp.Id,
+                A = this.state.Stories[vp.IndexA],
+                B = this.state.Stories[vp.IndexB]
+            });
 
 
         public void Gewichtung_regischtriere(IEnumerable<GewichtetesVergleichspaarDto> voting, Action ok, Action fehler)
         {
             this.gewichter.Gewichtung_berechne(voting, this.state.Vergleichspaare,
-               gewichtung => {
+               gewichtung =>
+               {
                    //TODO: Registrierung idempotent machen bzw. User zuordnen; sonst kann es dazu kommen, dass es mehr Gewichtungen gibt als Anmeldungen
                    this.state.Gewichtungen.Add(gewichtung);
                    ok();
@@ -80,11 +85,14 @@ namespace CeDomain
         }
 
 
-        public GesamtgewichtungDto Gesamtgewichtung {
-            get {
+        public GesamtgewichtungDto Gesamtgewichtung
+        {
+            get
+            {
                 var gesamtgewichung = this.gewichter.Gesamtgewichtung_berechne(this.state.Gewichtungen);
                 var stories = Stories_zur_Gewichtung(gesamtgewichung, this.state.Stories);
-                return new GesamtgewichtungDto { 
+                return new GesamtgewichtungDto
+                {
                     Stories = stories.ToArray(),
                     Anmeldungen = this.state.Anmeldungen.Count,
                     Gewichtungen = this.state.Gewichtungen.Count()
