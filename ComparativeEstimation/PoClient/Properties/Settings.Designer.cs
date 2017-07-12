@@ -25,7 +25,7 @@ namespace PoClient.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:5000/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:5000/api/")]
         public string ServerUrl {
             get {
                 return ((string)(this["ServerUrl"]));
