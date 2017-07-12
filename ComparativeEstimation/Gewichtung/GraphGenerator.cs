@@ -26,12 +26,36 @@ namespace Gewichtung
                 return new Dictionary<int, int>();
             }
 
-            return graph.Knoten.Select(k => new {Index = k.Index, AnzahlVorgänger = graph.Knoten.Count(v => v.Nachfolger.Select(m => m.Index).Contains(k.Index))}).ToDictionary(k => k.Index, v => v.AnzahlVorgänger);
+            return graph.Knoten.Select(k => new { Index = k.Index, AnzahlVorgänger = graph.Knoten.Count(v => v.Nachfolger.Select(m => m.Index).Contains(k.Index)) }).ToDictionary(k => k.Index, v => v.AnzahlVorgänger);
         }
 
-        private static void TopologischSortieren(Graph graph, Dictionary<int, int> vorgaenger, Action<Contracts.Gewichtung> ok, Action fehler)
+        internal static void TopologischSortieren(Graph graph, Dictionary<int, int> vorgaenger, Action<Contracts.Gewichtung> ok, Action fehler)
         {
-            throw new NotImplementedException();
+            var storyIndizes = new List<int>();
+
+            while (vorgaenger.Any())
+            {
+                // finde elemente Ohne Vorgänger
+                var keinVorgängerKnoten = vorgaenger.Where(v => v.Value == 0).ToList();
+                if (!keinVorgängerKnoten.Any())
+                {
+                    fehler();
+                    return;
+                }
+
+                foreach (var pair in keinVorgängerKnoten)
+                {
+                    storyIndizes.Add(pair.Key);
+                    foreach (var knoten in graph.Knoten.First(k => k.Index == pair.Key).Nachfolger)
+                    {
+                        vorgaenger[knoten.Index]--;
+                    }
+
+                    vorgaenger.Remove(pair.Key);
+                }
+            }
+
+            ok(new Contracts.Gewichtung{StoryIndizes = storyIndizes});
         }
     }
 }

@@ -41,13 +41,14 @@ namespace Gewichtung.Tests
                 Index = 3
             };
 
-            k0.Nachfolger = new List<Knoten>{k1,k2, k3};
-            k1.Nachfolger = new List<Knoten>{k2};
-             
-            var graph = new Graph
+            k0.Nachfolger = new List<Knoten> {k1, k2, k3};
+            k1.Nachfolger = new List<Knoten> {k2};
+
+            var graph1 = new Graph
             {
-                Knoten = new List<Knoten> { k0,k1,k2,k3 }
+                Knoten = new List<Knoten> {k0, k1, k2, k3}
             };
+            var graph = graph1;
 
             var dict = GraphGenerator.Anzahl_Vorgänger_berechnen(graph);
 
@@ -57,6 +58,34 @@ namespace Gewichtung.Tests
             dict[3].ShouldBe(1);
         }
 
+        [Fact]
+        public void Sortieren()
+        {
+            var k0 = new Knoten {Index = 0};
+            var k1 = new Knoten {Index = 1};
+            var k2 = new Knoten {Index = 2};
 
+            k0.Nachfolger.Add(k1);
+            k2.Nachfolger.Add(k0);
+            k2.Nachfolger.Add(k1);
+
+            var graph = new Graph()
+            {
+                Knoten = new List<Knoten> { k0,k1,k2}
+            };
+
+            var dict = new Dictionary<int, int>()
+            {
+                [0] = 1,
+                [1] = 2,
+                [2] = 0
+            };
+
+            GraphGenerator.TopologischSortieren(
+                graph,
+                dict,
+                g => {g.StoryIndizes.ShouldBe(new [] {2,0,1});},
+                () => Assert.False(true, "Unerwarteter Fehler"));
+        }
     }
 }
