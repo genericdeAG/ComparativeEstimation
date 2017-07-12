@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using Contracts;
 
@@ -15,14 +16,14 @@ namespace EClient
 
             this.OkCommand = new Command(this.Ok);
 
-            LadeVergleichspaare();
+            Lade_Vergleichspaare();
         }
 
         public ObservableCollection<Vergleichspaar> Vergleichspaare { get; set; }
 
         public ICommand OkCommand { get; set; }
 
-        internal void LadeVergleichspaare()
+        internal void Lade_Vergleichspaare()
         {
             this.Vergleichspaare = new ObservableCollection<Vergleichspaar>(this.ces.Vergleichspaare.Select(Mappings.MapVergleichspaar));
         }
@@ -30,7 +31,17 @@ namespace EClient
         private void Ok()
         {
             var votings = this.Vergleichspaare.Select(Mappings.MapGewichtetesVergleichspaar);
-            this.ces.Gewichtung_regischtriere(votings, null, null);
+            this.ces.Gewichtung_regischtriere(votings, Registrieung_erfolgreich, Registrieung_fehlgeschlagen);
+        }
+
+        private void Registrieung_erfolgreich()
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void Registrieung_fehlgeschlagen()
+        {
+            MessageBox.Show("Die Gewichtung ist inkonsistent");
         }
     }
 }

@@ -84,7 +84,7 @@
     <Compile Include="Command.cs" />
     <Compile Include="Converters\SelektionConverter.cs" />
     <Compile Include="Mappings.cs" />
-    <Compile Include="Tests\CesDummy.cs" />
+    <Compile Include="CesDummy.cs" />
     <Compile Include="Tests\VergleichspaarViewModelTests.cs" />
     <Compile Include="Vergleichspaar.cs" />
     <Compile Include="VergleichspaarViewModel.cs" />

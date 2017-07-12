@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using EClient.Tests;
 
 namespace EClient
 {
@@ -8,11 +7,10 @@ namespace EClient
     /// </summary>
     public partial class WpfPortal : Window
     {
-        private readonly VergleichspaarViewModel vm = new VergleichspaarViewModel(new CesDummy());
         public WpfPortal()
         {
             InitializeComponent();
-            base.DataContext = vm;
+            base.DataContext = new VergleichspaarViewModel(new CesDummy());
         }
     }
 }
