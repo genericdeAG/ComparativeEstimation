@@ -38,6 +38,10 @@ namespace PoClient.ViewModels
 
         public void AddStory()
         {
+            if (string.IsNullOrWhiteSpace(CurrentStory))
+            {
+                return;
+            }
             Stories.Add(CurrentStory);
             CurrentStory = string.Empty;
         }
