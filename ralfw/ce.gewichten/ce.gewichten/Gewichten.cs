@@ -36,7 +36,7 @@ namespace ce.gewichten
         {
             if (gewichtungen == null || !gewichtungen.Any())
             {
-                return new Gewichtung();
+                return new Gewichtung { StoryIndizes = new int[0]}; 
             }
 
             var scorecard = Scorecard_erzeugen(gewichtungen);

@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ce.gewichten", "ce.gewichten\ce.gewichten.csproj", "{2B491724-B450-4C2F-93B2-6FA83EDA40DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ce.gewichten.tests", "ce.gewichten.tests\ce.gewichten.tests.csproj", "{2C1C748A-48B6-4FBF-8448-CA9E580AC9B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +15,9 @@ Global
 		{2B491724-B450-4C2F-93B2-6FA83EDA40DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B491724-B450-4C2F-93B2-6FA83EDA40DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B491724-B450-4C2F-93B2-6FA83EDA40DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C1C748A-48B6-4FBF-8448-CA9E580AC9B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C1C748A-48B6-4FBF-8448-CA9E580AC9B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C1C748A-48B6-4FBF-8448-CA9E580AC9B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C1C748A-48B6-4FBF-8448-CA9E580AC9B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
