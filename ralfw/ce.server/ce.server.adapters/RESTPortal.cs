@@ -24,7 +24,7 @@ namespace ce.server.adapters
         }
 
 
-        [EntryPoint(HttpMethods.Get, "/Vergleichspaare", InputSources.Querystring)]
+        [EntryPoint(HttpMethods.Get, "/Vergleichspaare", InputSources.None)]
         public string Vergleichspaare(string _)
         {
             Console.WriteLine($"  GET.Vergleichspaare()");
@@ -53,7 +53,7 @@ namespace ce.server.adapters
         }
 
 
-        [EntryPoint(HttpMethods.Delete, "/Storyliste", InputSources.Querystring)]
+        [EntryPoint(HttpMethods.Delete, "/Storyliste", InputSources.None)]
         public string Reset(string _)
         {
             Console.WriteLine($"  DEL.Storyliste");
@@ -77,7 +77,7 @@ namespace ce.server.adapters
         }
 
 
-        [EntryPoint(HttpMethods.Get, "/Gesamtgewichtung", InputSources.Querystring)]
+        [EntryPoint(HttpMethods.Get, "/Gesamtgewichtung", InputSources.None)]
         public string Gesamtgewichtung(string _)
         {
             Console.WriteLine($"  GET.Gesamtgewichtung");
