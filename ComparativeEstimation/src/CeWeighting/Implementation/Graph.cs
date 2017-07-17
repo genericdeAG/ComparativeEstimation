@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace CeWeighting
 {
-    public class Class1
+    public class Graph
     {
+        public Graph()
+        {
+            Nodes = new List<Node>();
+        }
+        public IList<Node> Nodes { get; set; }
     }
 }

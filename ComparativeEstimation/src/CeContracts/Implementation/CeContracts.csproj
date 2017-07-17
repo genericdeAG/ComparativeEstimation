@@ -40,8 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICeWeighting.cs" />
+    <Compile Include="ComparisonPair.cs" />
+    <Compile Include="ComparisonPairDto.cs" />
+    <Compile Include="IComparativeEstimation.cs" />
+    <Compile Include="IWeighting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Selection.cs" />
+    <Compile Include="TotalWeighting.cs" />
+    <Compile Include="TotalWeightingDto.cs" />
+    <Compile Include="WeightedComparisonPairDto.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
