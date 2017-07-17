@@ -1,6 +1,6 @@
 using System;
 
-namespace WebApplication1.Areas.HelpPage.ModelDescriptions
+namespace Implementation2.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Use this attribute to change the name of the <see cref="ModelDescription"/> generated for a type.
