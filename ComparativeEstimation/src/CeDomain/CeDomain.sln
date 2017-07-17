@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CeDomain", "Implementation\CeDomain.csproj", "{A0FF3196-BBE0-4AA4-BA89-14FFBBE3AC04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CeDomain.Tests", "Tests\CeDomain.Tests.csproj", "{88EA5028-610A-4B19-A4D3-C6CE184ED443}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0FF3196-BBE0-4AA4-BA89-14FFBBE3AC04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0FF3196-BBE0-4AA4-BA89-14FFBBE3AC04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0FF3196-BBE0-4AA4-BA89-14FFBBE3AC04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0FF3196-BBE0-4AA4-BA89-14FFBBE3AC04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88EA5028-610A-4B19-A4D3-C6CE184ED443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88EA5028-610A-4B19-A4D3-C6CE184ED443}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88EA5028-610A-4B19-A4D3-C6CE184ED443}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88EA5028-610A-4B19-A4D3-C6CE184ED443}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

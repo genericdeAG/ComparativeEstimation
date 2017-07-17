@@ -1,8 +1,0 @@
-﻿<Application x:Class="PoClient.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:PoClient">
-    <Application.Resources>
-         <ResourceDictionary Source="Styles.xaml"/>
-    </Application.Resources>
-</Application>
