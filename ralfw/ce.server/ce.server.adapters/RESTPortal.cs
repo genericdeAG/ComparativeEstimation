@@ -14,15 +14,18 @@ namespace ce.server.adapters
     [Service]
     public class RESTPortal
     {
+        //$block:b1,b2
         [EntryPoint(HttpMethods.Post, "/Anmeldungen", InputSources.Querystring)]
         public string Anmeldungen(string id)
         {
             Console.WriteLine($"  POST.Anmeldungen({id})");
 
+            //$block:b3
             ApplicationState.RequestHandler.Âmelde(id);
+            //$block:/b3
             return "";
         }
-
+        //$block:/b1
 
         [EntryPoint(HttpMethods.Get, "/Vergleichspaare", InputSources.None)]
         public string Vergleichspaare(string _)
@@ -34,6 +37,7 @@ namespace ce.server.adapters
             var json = new JavaScriptSerializer();
             return json.Serialize(vergleichspaare);
         }
+        //$block:/b2
 
 
         [EntryPoint(HttpMethods.Post, "/Voting", InputSources.Payload)]
