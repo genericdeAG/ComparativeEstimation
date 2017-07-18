@@ -50,8 +50,6 @@
     <Compile Include="dto\ComparisonPairDto.cs" />
     <Compile Include="dto\Selection.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="dto\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
