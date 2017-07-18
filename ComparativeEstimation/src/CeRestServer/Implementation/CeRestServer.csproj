@@ -193,7 +193,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SprintController.cs" />
     <Compile Include="Controllers\TotalWeightingController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VotingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -234,6 +233,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\comparative-estimation-api - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
