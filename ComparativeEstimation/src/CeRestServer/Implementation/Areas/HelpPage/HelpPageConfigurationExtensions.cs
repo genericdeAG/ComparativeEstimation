@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using Implementation2.Areas.HelpPage.ModelDescriptions;
-using Implementation2.Areas.HelpPage.Models;
+using CeRestServer2.Areas.HelpPage.ModelDescriptions;
+using CeRestServer2.Areas.HelpPage.Models;
 
-namespace Implementation2.Areas.HelpPage
+namespace CeRestServer2.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

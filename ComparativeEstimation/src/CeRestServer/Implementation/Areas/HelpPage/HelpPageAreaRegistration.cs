@@ -1,7 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace Implementation2.Areas.HelpPage
+namespace CeRestServer2.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Implementation2.Areas.HelpPage.ModelDescriptions
+namespace CeRestServer2.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {

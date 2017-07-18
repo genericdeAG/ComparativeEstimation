@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CeRestServer.Tests", "Tests\CeRestServer.Tests.csproj", "{6512BAD7-7971-40AF-B32D-8F6DAFF4EAFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CeRestServer", "Implementation\CeRestServer.csproj", "{E2691ECD-A587-46B6-853C-746C02844E59}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CeRestServer", "Implementation\CeRestServer.csproj", "{A34A69D7-A2B4-46B2-9AC3-AB76A3194100}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{6512BAD7-7971-40AF-B32D-8F6DAFF4EAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6512BAD7-7971-40AF-B32D-8F6DAFF4EAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6512BAD7-7971-40AF-B32D-8F6DAFF4EAFC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E2691ECD-A587-46B6-853C-746C02844E59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2691ECD-A587-46B6-853C-746C02844E59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2691ECD-A587-46B6-853C-746C02844E59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2691ECD-A587-46B6-853C-746C02844E59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A34A69D7-A2B4-46B2-9AC3-AB76A3194100}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A34A69D7-A2B4-46B2-9AC3-AB76A3194100}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A34A69D7-A2B4-46B2-9AC3-AB76A3194100}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A34A69D7-A2B4-46B2-9AC3-AB76A3194100}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

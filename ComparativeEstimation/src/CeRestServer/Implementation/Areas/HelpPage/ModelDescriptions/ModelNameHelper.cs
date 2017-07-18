@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace Implementation2.Areas.HelpPage.ModelDescriptions
+namespace CeRestServer2.Areas.HelpPage.ModelDescriptions
 {
     internal static class ModelNameHelper
     {

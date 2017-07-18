@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace Implementation2.Areas.HelpPage
+namespace CeRestServer2.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

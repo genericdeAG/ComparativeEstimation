@@ -1,6 +1,6 @@
 using System;
 
-namespace Implementation2.Areas.HelpPage.ModelDescriptions
+namespace CeRestServer2.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

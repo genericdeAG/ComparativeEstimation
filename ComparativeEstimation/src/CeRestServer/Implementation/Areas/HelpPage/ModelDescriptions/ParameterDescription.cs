@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Implementation2.Areas.HelpPage.ModelDescriptions
+namespace CeRestServer2.Areas.HelpPage.ModelDescriptions
 {
     public class ParameterDescription
     {

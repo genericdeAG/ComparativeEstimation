@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using System.Xml.XPath;
-using Implementation2.Areas.HelpPage.ModelDescriptions;
+using CeRestServer2.Areas.HelpPage.ModelDescriptions;
 
-namespace Implementation2.Areas.HelpPage
+namespace CeRestServer2.Areas.HelpPage
 {
     /// <summary>
     /// A custom <see cref="IDocumentationProvider"/> that reads the API documentation from an XML documentation file.

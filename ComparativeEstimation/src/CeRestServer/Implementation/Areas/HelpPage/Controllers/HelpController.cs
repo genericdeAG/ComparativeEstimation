@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using Implementation2.Areas.HelpPage.ModelDescriptions;
-using Implementation2.Areas.HelpPage.Models;
+using CeRestServer2.Areas.HelpPage.ModelDescriptions;
+using CeRestServer2.Areas.HelpPage.Models;
 
-namespace Implementation2.Areas.HelpPage.Controllers
+namespace CeRestServer2.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

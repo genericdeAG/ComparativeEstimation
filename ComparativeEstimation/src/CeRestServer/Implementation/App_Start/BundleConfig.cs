@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace Implementation2
+namespace CeRestServer2
 {
     public class BundleConfig
     {
