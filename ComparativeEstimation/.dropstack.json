@@ -1,0 +1,12 @@
+{
+  "variables": "build=./ds-build.sh,start=./ds-start.sh",
+  "instances": 1,
+  "type": "mono",
+  "excludes": [
+    "bin/*",
+    "obj/*",
+    "packages/*"
+  ],
+  "name": "wdrssjin",
+  "serviceUrl": "wdrssjin.cloud.dropstack.run"
+}
