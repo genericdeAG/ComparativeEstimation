@@ -121,3 +121,7 @@ Der PO kann jederzeit den PO-Client mit einer Schätzrunden-ID starten und sieht
 Das Deployment sollte nach Microsoft Azure auch mit dem Nancy Server funktionieren.
 
 Darüber hinaus gibt kann mit `./ds-deploy.sh` auch nach `http://dropstack.run` reployt werden. Das ist ein Hosting Dienst im Aufbau, der es sehr einfach machen will, "eben mal zwischendurch" etwas in die Cloud zu pushen, egal auf welchem Stack basierend.
+
+1. **Einmalig** dropstack installieren: `npm install -g dropstack-cli`
+2. **Einmalig** anmelden: `dropstack login`
+3. **Jedes Mal** fürs Deployen im Wurzelverzeichnis des Projektes aufrufen: `./ds-deploy.sh`(Mac/Linux, ein Windows Batch fehlt noch)
