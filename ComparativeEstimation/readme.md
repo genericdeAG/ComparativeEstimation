@@ -116,3 +116,8 @@ Der PO kann jederzeit den PO-Client mit einer Schätzrunden-ID starten und sieht
   * Teammitglieder werden per Email zur Schätzrunde eingeladen.
   * Der PO wird über abgegebene Schätzungen per Email informiert.
 * Der PO kann eine Schätzrunde abschließen. Dann werden keine weiteren Schätzungen von Teammitglieder mehr akzeptiert.
+
+## Deployment
+Das Deployment sollte nach Microsoft Azure auch mit dem Nancy Server funktionieren.
+
+Darüber hinaus gibt kann mit `./ds-deploy.sh` auch nach `http://dropstack.run` reployt werden. Das ist ein Hosting Dienst im Aufbau, der es sehr einfach machen will, "eben mal zwischendurch" etwas in die Cloud zu pushen, egal auf welchem Stack basierend.
