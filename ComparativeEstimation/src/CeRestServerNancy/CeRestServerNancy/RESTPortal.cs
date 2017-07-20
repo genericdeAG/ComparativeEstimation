@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Web.Script.Serialization;
 using Nancy;
 using Nancy.ModelBinding;
+using Nancy.Responses;
 using CeContracts;
 
 namespace CeRestServerNancy
@@ -19,6 +21,18 @@ namespace CeRestServerNancy
                 var sprintId = RESTPortal.requestHandler.Create_Sprint(userstories);
 
                 return sprintId;
+            };
+
+            Get["/api/comparisonpairs/{sprintId}"] = p => {
+                Console.WriteLine("RESTPortal.Comparison pairs requested: {0}", p.sprintId);
+
+                var pairs = RESTPortal.requestHandler.ComparisonPairs(p.sprintId);
+
+                var json = new JavaScriptSerializer();
+                var jsonPairs = json.Serialize(pairs);
+                var response = (Response)jsonPairs;
+                response.ContentType = "application/json";
+                return response;
             };
 
 

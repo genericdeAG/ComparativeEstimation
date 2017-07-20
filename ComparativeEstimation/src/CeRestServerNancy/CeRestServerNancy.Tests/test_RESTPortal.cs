@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Net;
+using System.Linq;
 
 namespace CeRestServerNancy.Tests
 {
@@ -13,19 +14,43 @@ namespace CeRestServerNancy.Tests
     public class test_RESTPortal
     {
         [Test()]
-        public void TestCase()
+        public void Create_sprint()
         {
             var rh = new MockRequestHandler();
+            rh.sprintId = "42";
+
             using(new RESTServer("http://localhost:8080", rh)) {
                 var stories = new[] { "X", "Y", "Z" };
                 var json = new JavaScriptSerializer();
                 var jsonStories = json.Serialize(stories);
-                Console.WriteLine(jsonStories);
 
                 var wc = new WebClient();
                 wc.Headers.Add("Content-Type", "application/json");
                 var result = wc.UploadString("http://localhost:8080/api/sprints", "Post", jsonStories);
-                Assert.AreEqual("some id", result);
+
+                Assert.AreEqual("42", result);
+            }
+        }
+
+        [Test]
+        public void Get_comparison_pairs() {
+            var rh = new MockRequestHandler();
+            rh.sprintId = "some id";
+
+            using (new RESTServer("http://localhost:8080", rh))
+            {
+                var wc = new WebClient();
+                var resultJson = wc.DownloadString("http://localhost:8080/api/comparisonpairs/42");
+
+                var json = new JavaScriptSerializer();
+                var result = json.Deserialize<ComparisonPairsDto>(resultJson);
+
+                Assert.AreEqual("42", result.SprintId);
+
+                var pairs = result.Pairs.ToArray();
+                Assert.AreEqual(2, result.Pairs.Length);
+                Assert.AreEqual("1", result.Pairs[0].Id);
+                Assert.AreEqual("Z", result.Pairs[1].B);
             }
         }
     }
@@ -33,16 +58,29 @@ namespace CeRestServerNancy.Tests
 
     class MockRequestHandler : IRequestHandling
     {
-        public ComparisonPairsDto ComparisonPairs(string id)
-        {
-            throw new NotImplementedException();
-        }
+        public string sprintId;
+
 
         public string Create_Sprint(IEnumerable<string> stories)
         {
             Console.WriteLine("MockRequestHandler.Create sprint: {0}", string.Join(";", stories));
-            return "some id";
+            return this.sprintId;
         }
+
+        public ComparisonPairsDto ComparisonPairs(string id)
+        {
+            Console.WriteLine("MockRequestHandler.Comparison pairs for {0}", id);
+            this.sprintId = id;
+
+            return new ComparisonPairsDto { 
+                SprintId = id,
+                Pairs = new[]{
+                            new ComparisonPairDto{Id="1", A="X", B="Y"},
+                            new ComparisonPairDto { Id = "2", A = "X", B = "Z" } 
+                        }
+            };
+        }
+
 
         public void Delete_Sprint(string id)
         {
