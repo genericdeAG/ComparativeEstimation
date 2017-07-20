@@ -40,16 +40,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComparisonPair.cs" />
-    <Compile Include="IComparativeEstimation.cs" />
+    <Compile Include="IRequestHandling.cs" />
     <Compile Include="IWeighting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TotalWeighting.cs" />
     <Compile Include="dto\TotalWeightingDto.cs" />
     <Compile Include="dto\WeightedComparisonPairDto.cs" />
     <Compile Include="dto\ComparisonPairDto.cs" />
     <Compile Include="dto\Selection.cs" />
+    <Compile Include="dto\InconsistentVotingDto.cs" />
+    <Compile Include="data\ComparisonPair.cs" />
+    <Compile Include="data\TotalWeighting.cs" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="data\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

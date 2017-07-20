@@ -3,7 +3,8 @@
 ```
 POST /api/sprints
 In:
-{["X", "Y", "Z"]} // jeder Eintrag eine User Story
+Content-Type: application/json
+["X", "Y", "Z"] // jeder Eintrag eine User Story
 Out:
 200 OK
 abcd1234 // ID des Sprint

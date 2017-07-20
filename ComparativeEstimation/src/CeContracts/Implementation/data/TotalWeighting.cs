@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CeContracts
+namespace CeContracts.data
 {
     public class TotalWeighting
     {

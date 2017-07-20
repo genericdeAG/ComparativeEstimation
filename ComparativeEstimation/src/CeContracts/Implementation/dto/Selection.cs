@@ -1,4 +1,4 @@
-﻿namespace CeContracts
+﻿namespace CeContracts.dto
 {
     public enum Selection
     {
