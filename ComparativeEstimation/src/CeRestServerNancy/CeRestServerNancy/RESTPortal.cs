@@ -25,6 +25,16 @@ namespace CeRestServerNancy
             };
 
 
+            Delete["/api/sprints/{sprintId}"] = p =>
+            {
+                Console.WriteLine("RESTPortal.Delete sprint requested for {0}", p.sprintId);
+
+                RESTPortal.requestHandler.Delete_Sprint(p.sprintId);
+
+                return p.sprintId.ToString();
+            };
+
+
             Get["/api/comparisonpairs/{sprintId}"] = p => {
                 Console.WriteLine("RESTPortal.Comparison pairs requested: {0}", p.sprintId);
 
@@ -38,14 +48,17 @@ namespace CeRestServerNancy
             };
 
 
-            Post["/api/votings/{sprintId}"] = p =>
+            Post["/api/sprints/{sprintId}/votings"] = p =>
             {
                 Console.WriteLine("RESTPortal.Voting submitted: {0}", p.sprintId);
 
                 var voting = this.Bind<VotingDto>();
                 Response response = new Response();
+
                 RESTPortal.requestHandler.Submit_voting(p.sprintId, voting,
+                                                        
                     new Action(() => response = ""),
+
                     new Action<InconsistentVotingDto>(iv => {
                         var json = new JavaScriptSerializer();
                         var jsonIv = json.Serialize(iv);

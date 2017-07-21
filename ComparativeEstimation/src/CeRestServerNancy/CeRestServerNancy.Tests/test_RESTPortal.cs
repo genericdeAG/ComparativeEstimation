@@ -33,6 +33,22 @@ namespace CeRestServerNancy.Tests
             }
         }
 
+        [Test()]
+        public void Delete_sprint()
+        {
+            var rh = new MockRequestHandler();
+
+            using (new RESTServer("http://localhost:8080", rh))
+            {
+                var wc = new WebClient();
+                wc.Headers.Add("Content-Type", "application/json");
+                var result = wc.UploadString("http://localhost:8080/api/sprints/42", "Delete", "");
+
+                Assert.AreEqual("42", rh.sprintId);
+                Assert.AreEqual("42", result);
+            }
+        }
+
 
         [Test]
         public void Get_comparison_pairs() {
@@ -80,7 +96,7 @@ namespace CeRestServerNancy.Tests
 
                 var wc = new WebClient();
                 wc.Headers.Add("Content-Type", "application/json");
-                var result = wc.UploadString("http://localhost:8080/api/votings/42", "Post", jsonVoting);
+                var result = wc.UploadString("http://localhost:8080/api/sprints/42/votings", "Post", jsonVoting);
 
                 Assert.AreEqual("42", rh.sprintId);
                 Assert.AreEqual("Frodo", rh.voting.VoterId);
@@ -106,7 +122,7 @@ namespace CeRestServerNancy.Tests
 
                     var wc = new WebClient();
                     wc.Headers.Add("Content-Type", "application/json");
-                    var result = wc.UploadString("http://localhost:8080/api/votings/42", "Post", jsonVoting);
+                    var result = wc.UploadString("http://localhost:8080/api/sprints/42/votings", "Post", jsonVoting);
                 }
                 catch(WebException e) {
                     var response = (System.Net.HttpWebResponse)e.Response;
@@ -201,9 +217,10 @@ namespace CeRestServerNancy.Tests
         }
 
 
-        public void Delete_Sprint(string id)
+        public void Delete_Sprint(string sprintId)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("MockRequestHandler.Deletion of sprint {0}", sprintId);
+            this.sprintId = sprintId;
         }
     }
 }

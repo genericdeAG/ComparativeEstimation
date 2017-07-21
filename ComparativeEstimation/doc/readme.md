@@ -31,7 +31,7 @@ Content-Type: application/json
 ```
 ## Voting einreichen (Dev)
 ```
-POST /api/votings/<sprintId>
+POST /api/sprints/<sprintId>/votings
 In:
 Content-Type: application/json
 {
@@ -74,4 +74,5 @@ DELETE /api/sprints/<sprintId>
 In:
 Out:
 200 OK
+abcd1234 // ID des Sprint
 ```
