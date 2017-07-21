@@ -123,6 +123,27 @@ namespace CeRestServerNancy.Tests
                 }
             }
         }
+
+
+        [Test]
+        public void Get_total_weighting()
+        {
+            var rh = new MockRequestHandler();
+
+            using (new RESTServer("http://localhost:8080", rh))
+            {
+                var wc = new WebClient();
+                var resultJson = wc.DownloadString("http://localhost:8080/api/sprints/42/totalweighting");
+                Console.WriteLine(resultJson);
+
+                var json = new JavaScriptSerializer();
+                var result = json.Deserialize<TotalWeightingDto>(resultJson);
+
+                Assert.AreEqual("42", result.SprintId);
+                Assert.AreEqual(new[]{"Z", "Y", "X"}, result.Stories);
+                Assert.AreEqual(4, result.NumberOfVotings);
+            }
+        }
     }
 
 
@@ -138,13 +159,13 @@ namespace CeRestServerNancy.Tests
             return this.sprintId;
         }
 
-        public ComparisonPairsDto ComparisonPairs(string id)
+        public ComparisonPairsDto ComparisonPairs(string sprintId)
         {
-            Console.WriteLine("MockRequestHandler.Comparison pairs for {0}", id);
-            this.sprintId = id;
+            Console.WriteLine("MockRequestHandler.Comparison pairs for {0}", sprintId);
+            this.sprintId = sprintId;
 
             return new ComparisonPairsDto { 
-                SprintId = id,
+                SprintId = sprintId,
                 Pairs = new[]{
                             new ComparisonPairDto{Id="1", A="X", B="Y"},
                             new ComparisonPairDto { Id = "2", A = "X", B = "Z" } 
@@ -155,6 +176,8 @@ namespace CeRestServerNancy.Tests
 
         public void Submit_voting(string sprintId, VotingDto voting, Action onOk, Action<InconsistentVotingDto> onInconsistency)
         {
+            Console.WriteLine("MockRequestHandler.Submit voting for {0}", sprintId);
+
             this.sprintId = sprintId;
             this.voting = voting;
 
@@ -165,12 +188,20 @@ namespace CeRestServerNancy.Tests
         }
 
 
-        public void Delete_Sprint(string id)
+        public TotalWeightingDto Get_total_weighting_for_sprint(string sprintId)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("MockRequestHandler.Get total weighting for {0}", sprintId);
+            this.sprintId = sprintId;
+
+            return new TotalWeightingDto { 
+                SprintId = sprintId,
+                Stories = new[]{"Z", "Y", "X"},
+                NumberOfVotings = 4
+            };
         }
 
-        public TotalWeightingDto Get_total_weighting_for_sprint(string id)
+
+        public void Delete_Sprint(string id)
         {
             throw new NotImplementedException();
         }

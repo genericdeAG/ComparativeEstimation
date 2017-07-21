@@ -57,13 +57,14 @@ Content-Type: application/json
 ```
 ## Gesamtgewichtung abrufen (PO)
 ```
-GET /api/sprints/<sprintId>
+GET /api/sprints/<sprintId>/totalweighting
 In:
 Out:
 200 OK
 Content-Type: application/json
 {
-    "TotalWeighting": ["Z", "X", "Y"],
+    "SprintId": "42",
+    "Stories": ["Z", "X", "Y"],
     "NumberOfVotings": 3
 }
 ```

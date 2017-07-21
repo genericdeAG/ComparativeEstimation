@@ -58,6 +58,20 @@ namespace CeRestServerNancy
             };
 
 
+            Get["/api/sprints/{sprintId}/totalweighting"] = p =>
+            {
+                Console.WriteLine("RESTPortal.Comparison pairs requested: {0}", p.sprintId);
+
+                var totalWeighting = RESTPortal.requestHandler.Get_total_weighting_for_sprint(p.sprintId);
+
+                var json = new JavaScriptSerializer();
+                var jsonTotalWeighting = json.Serialize(totalWeighting);
+                var response = (Response)jsonTotalWeighting;
+                response.ContentType = "application/json";
+                return response;
+            };
+
+
             Get["/info"] = _ => {
 			    Console.WriteLine("Liveness check");
 			    var assembly = System.Reflection.Assembly.GetExecutingAssembly();
