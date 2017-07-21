@@ -5,6 +5,7 @@ using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Responses;
 using CeContracts;
+using CeContracts.dto;
 
 namespace CeRestServerNancy
 {
@@ -23,6 +24,7 @@ namespace CeRestServerNancy
                 return sprintId;
             };
 
+
             Get["/api/comparisonpairs/{sprintId}"] = p => {
                 Console.WriteLine("RESTPortal.Comparison pairs requested: {0}", p.sprintId);
 
@@ -32,6 +34,26 @@ namespace CeRestServerNancy
                 var jsonPairs = json.Serialize(pairs);
                 var response = (Response)jsonPairs;
                 response.ContentType = "application/json";
+                return response;
+            };
+
+
+            Post["/api/votings/{sprintId}"] = p =>
+            {
+                Console.WriteLine("RESTPortal.Voting submitted: {0}", p.sprintId);
+
+                var voting = this.Bind<VotingDto>();
+                Response response = new Response();
+                RESTPortal.requestHandler.Submit_voting(p.sprintId, voting,
+                    new Action(() => response = ""),
+                    new Action<InconsistentVotingDto>(iv => {
+                        var json = new JavaScriptSerializer();
+                        var jsonIv = json.Serialize(iv);
+                        response = (Response)jsonIv;
+                        response.ContentType = "application/json";
+                        response.StatusCode = HttpStatusCode.UnprocessableEntity;
+                }));
+
                 return response;
             };
 
