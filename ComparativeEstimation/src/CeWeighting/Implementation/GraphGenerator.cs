@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CeContracts;
+
+using CeContracts.data;
+using CeWeighting.data;
+
 
 namespace CeWeighting
 {
-    public static class GraphGenerator
+    internal static class GraphGenerator
     {
         public static Graph Create_Graph(IEnumerable<IndexTupel> relations)
         {

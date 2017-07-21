@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CeContracts;
+
+using NUnit.Framework;
+
+using CeContracts.dto;
+using CeContracts.data;
 using CeWeighting;
-using Xunit;
+using CeWeighting.data;
+
 
 namespace CeWeightingTests
 {
+    [TestFixture]
     public class WeightingTests
     {
-        [Fact]
+        [Test]
         public void Compute_Estimator_Weighting()
         {
             var voting = new List<WeightedComparisonPairDto>()
@@ -35,22 +41,22 @@ namespace CeWeightingTests
                 () => { throw new Exception(); }
             );
 
-            Assert.Equal(new[] { 2, 0, 1 }, result);
+            Assert.AreEqual(new[] { 2, 0, 1 }, result);
         }
 
-        [Fact]
+        [Test]
         public void Get_Total_Weighting_From_Without_Votings_Returns_Empty_List()
         {
             var sut = new Weighting();
 
             var result = sut.Get_Total_Weighting_From(new List<TotalWeighting>());
-            Assert.Equal(0, result.StoryIndizes.Count());
+            Assert.AreEqual(0, result.StoryIndizes.Count());
 
             result = sut.Get_Total_Weighting_From(null);
-            Assert.Equal(0, result.StoryIndizes.Count());
+            Assert.AreEqual(0, result.StoryIndizes.Count());
         }
 
-        [Fact]
+        [Test]
         public void Compute_Estimator_Weighting_Raises_Exception()
         {
             var voting = new List<WeightedComparisonPairDto>()
@@ -77,7 +83,7 @@ namespace CeWeightingTests
         }
 
 
-        [Fact]
+        [Test]
         public void Relations()
         {
             IEnumerable<WeightedComparisonPairDto> voting = new List<WeightedComparisonPairDto>
@@ -128,11 +134,11 @@ namespace CeWeightingTests
 
         private void AssertIndize(IndexTupel tuple, int moreWeight, int lessWeight)
         {
-            Assert.Equal(lessWeight, tuple.LessWeight);
-            Assert.Equal(moreWeight, tuple.MoreWeight);
+            Assert.AreEqual(lessWeight, tuple.LessWeight);
+            Assert.AreEqual(moreWeight, tuple.MoreWeight);
         }
 
-        [Fact]
+        [Test]
         public void Gesamtgewichtung_berechne_richtig()
         {
             var estimatorWeightings = new List<TotalWeighting>()
@@ -146,7 +152,7 @@ namespace CeWeightingTests
 
             var result = sut.Get_Total_Weighting_From(estimatorWeightings);
 
-            Assert.Equal(new[] { 2, 1, 0 }, result.StoryIndizes);
+            Assert.AreEqual(new[] { 2, 1, 0 }, result.StoryIndizes);
         }
     }
 }

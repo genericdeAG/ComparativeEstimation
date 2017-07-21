@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using CeContracts;
+using CeContracts.dto;
+using CeContracts.data;
+using CeWeighting.data;
+
 
 namespace CeWeighting
 {
@@ -23,6 +26,7 @@ namespace CeWeighting
             var pairs = comparisonPairs.ToList();
             return voting.Select(v => Create_IndexTupel(v, pairs.First(p => p.Id == v.Id)));
         }
+
 
         private static IndexTupel Create_IndexTupel(WeightedComparisonPairDto v, ComparisonPair pair)
         {

@@ -43,12 +43,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graph.cs" />
     <Compile Include="GraphGenerator.cs" />
-    <Compile Include="IndexTupel.cs" />
-    <Compile Include="Node.cs" />
     <Compile Include="Weighting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="data\graph.cs" />
+    <Compile Include="data\IndexTupel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="data\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
