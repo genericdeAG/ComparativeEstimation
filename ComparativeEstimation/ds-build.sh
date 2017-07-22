@@ -1,4 +1,17 @@
 #!/bin/sh
-cd src/buildAll
+rm -rf bin
+cd src/CeContracts
 nuget restore
-msbuild buildAllNancy.sln /t:"Clean;Rebuild" /p:"Configuration=Release;OutputPath=../../../bin" /p:Platform="x86"
+msbuild CeContracts.sln /t:"Clean;Rebuild" /p:"Configuration=Release"
+
+cd ../CeWeighting
+nuget restore
+msbuild Implementation/CeWeighting.csproj /t:"Clean;Rebuild" /p:"Configuration=Release"
+
+cd ../CeDomain
+nuget restore
+msbuild Implementation/CeDomain.csproj /t:"Clean;Rebuild" /p:"Configuration=Release"
+
+cd ../CeRestServerNancy
+nuget restore
+msbuild CeRestServerNancy/CeRestServerNancy.csproj /t:"Clean;Rebuild" /p:"Configuration=Release"
