@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using CeContracts;
+using CeContracts.dto;
+using CeContracts.data;
+
 
 namespace CeDomain
 {
-    public class RequestHandler : IComparativeEstimation
+    public class RequestHandler : IRequestHandling
     {
         internal class State
         {
@@ -17,19 +19,43 @@ namespace CeDomain
             public List<TotalWeighting> EstimatorWeightings = new List<TotalWeighting>();
         }
 
-        private readonly IWeighting _weightingProcessor;
+        private readonly IWeighting weighting;
         private readonly State _state;
 
 
-        public RequestHandler(IWeighting weightingProcessor) : this(weightingProcessor, new State()) { }
-        internal RequestHandler(IWeighting weightingProcessor, State state)
-        {
-            _weightingProcessor = weightingProcessor;
+        public RequestHandler(IWeighting weighting) : this(weighting, new State()) { }
+        internal RequestHandler(IWeighting weighting, State state) {
+            this.weighting = weighting;
             _state = state;
         }
 
 
-        public void Delete_Sprint()
+        //TODO: Sprint persistent anlegen; mehrere Sprints verwalten
+        public string Create_Sprint(IEnumerable<string> stories) {
+            string sprintId = Guid.NewGuid().ToString();
+
+            Delete_Sprint(sprintId);
+            _state.Stories = stories.ToArray();
+            _state.ComparisonPairs = Vergleichspaare_berechnen(_state.Stories.Length).ToArray();
+
+            return sprintId;
+        }
+
+        internal static IEnumerable<ComparisonPair> Vergleichspaare_berechnen(int numberOfStories)
+        {
+            for (var indexA = 0; indexA < numberOfStories; indexA++)
+                for (var indexB = indexA + 1; indexB < numberOfStories; indexB++)
+                    yield return new ComparisonPair()
+                    {
+                        Id = (100 * indexA + indexB).ToString(),
+                        IndexA = indexA,
+                        IndexB = indexB
+                    };
+        }
+
+
+        //TODO: Sprint mit id löschen
+        public void Delete_Sprint(string sprintId)
         {
             _state.Stories = new string[0];
             _state.EstimatorClientRegistrations = new HashSet<string>();
@@ -38,76 +64,46 @@ namespace CeDomain
         }
 
 
-        public void Create_Sprint(IEnumerable<string> stories)
-        {
-            Delete_Sprint();
-            _state.Stories = stories.ToArray();
-            _state.ComparisonPairs = Vergleichspaare_berechnen(_state.Stories.Length).ToArray();
-        }
+        public ComparisonPairsDto ComparisonPairs(string sprintId) {
+            var pairs = _state.ComparisonPairs.Select(vp => new ComparisonPairDto {
+													                Id = vp.Id,
+													                A = _state.Stories[vp.IndexA],
+													                B = _state.Stories[vp.IndexB]
+													            }).ToArray();
 
-        internal static IEnumerable<ComparisonPair> Vergleichspaare_berechnen(int numberOfStories)
-        {
-            for (var indexA = 0; indexA < numberOfStories; indexA++)
-            for (var indexB = indexA + 1; indexB < numberOfStories; indexB++)
-                yield return new ComparisonPair()
-                {
-                    Id = (100 * indexA + indexB).ToString(),
-                    IndexA = indexA,
-                    IndexB = indexB
-                };
+            return new ComparisonPairsDto { 
+                SprintId = sprintId,
+                Pairs = pairs
+            };
         }
 
 
-        public void Register_Estimator_Client(string id)
+        //TODO: voterId auswerten, Inkonsistenzquellen bestimmen
+        //TODO: Registrierung idempotent machen bzw. User zuordnen; sonst kann es dazu kommen, dass es mehr Gewichtungen gibt als Anmeldungen
+        public void Submit_voting(string sprintId, VotingDto voting, Action onOk, Action<InconsistentVotingDto> onInconsistency)
         {
-            if (_state.EstimatorClientRegistrations == null) _state.EstimatorClientRegistrations = new HashSet<string>();
-            _state.EstimatorClientRegistrations.Add(id);
-        }
-
-        public void Register_Product_Owner_Client(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public IEnumerable<ComparisonPairDto> ComparisonPairs
-            => _state.ComparisonPairs.Select(vp => new ComparisonPairDto
-            {
-                Id = vp.Id,
-                A = _state.Stories[vp.IndexA],
-                B = _state.Stories[vp.IndexB]
-            });
-
-
-        public void Register_Estimator_Weighting(IEnumerable<WeightedComparisonPairDto> voting, Action ok, Action fehler)
-        {
-            _weightingProcessor.Compute_Estimator_Weighting(voting, _state.ComparisonPairs,
-                gewichtung =>
-                {
-                    //TODO: Registrierung idempotent machen bzw. User zuordnen; sonst kann es dazu kommen, dass es mehr Gewichtungen gibt als Anmeldungen
+            this.weighting.Compute_Estimator_Weighting(voting.Weightings, _state.ComparisonPairs,
+                gewichtung => {
                     _state.EstimatorWeightings.Add(gewichtung);
-                    ok();
+                    onOk();
                 },
-                fehler);
+                () => {
+                    onInconsistency(new InconsistentVotingDto { SprintId = sprintId, ComparisonPairId = "" });
+                });
         }
 
 
-        public TotalWeightingDto TotalWeighting
-        {
-            get
-            {
-                var gesamtgewichung = _weightingProcessor.Get_Total_Weighting_From(_state.EstimatorWeightings);
-                var stories = Stories_zur_Gewichtung(gesamtgewichung, _state.Stories);
-                return new TotalWeightingDto
-                {
-                    Stories = stories.ToArray(),
-                    EstimatorClientRegistrations = _state.EstimatorClientRegistrations.Count,
-                    EstimatorWeightings = _state.EstimatorWeightings.Count()
-                };
-            }
+        public TotalWeightingDto Get_total_weighting_for_sprint(string sprintId) {
+            var totalWeighting = this.weighting.Get_Total_Weighting_From(_state.EstimatorWeightings);
+            var stories = Stories_for_weighting(totalWeighting, _state.Stories);
+            return new TotalWeightingDto {
+                SprintId = sprintId,
+                Stories = stories.ToArray(),
+                NumberOfVotings = _state.EstimatorWeightings.Count()
+            };
         }
 
-        internal static IEnumerable<string> Stories_zur_Gewichtung(TotalWeighting gewichtung, string[] stories)
-            => gewichtung.StoryIndizes.Select(si => stories[si]);
+        internal static IEnumerable<string> Stories_for_weighting(TotalWeighting weighting, string[] stories)
+            => weighting.StoryIndizes.Select(si => stories[si]);
     }
 }
