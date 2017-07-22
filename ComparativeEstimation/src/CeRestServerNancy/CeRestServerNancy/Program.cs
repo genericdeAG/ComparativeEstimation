@@ -4,8 +4,9 @@
     {
         public static void Main(string[] args)
         {
-            //TODO: produktions request handler übergeben
-            using (var server = new RESTServer(args[0], null)) {
+            var requestHandler = new CeDomain.RequestHandler(
+                                                new CeWeighting.Weighting());
+            using (var server = new RESTServer(args[0], requestHandler)) {
                 server.WaitForConsole();
             }
         }

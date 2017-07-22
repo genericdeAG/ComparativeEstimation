@@ -36,7 +36,7 @@ namespace CeRestServerNancy
 
 
             Get["/api/comparisonpairs/{sprintId}"] = p => {
-                Console.WriteLine("RESTPortal.Comparison pairs requested: {0}", p.sprintId);
+                Console.WriteLine("RESTPortal.Comparison pairs queried of {0}", p.sprintId);
 
                 var pairs = RESTPortal.requestHandler.ComparisonPairs(p.sprintId);
 
@@ -73,7 +73,7 @@ namespace CeRestServerNancy
 
             Get["/api/sprints/{sprintId}/totalweighting"] = p =>
             {
-                Console.WriteLine("RESTPortal.Comparison pairs requested: {0}", p.sprintId);
+                Console.WriteLine("RESTPortal.Total weighting queried of {0}", p.sprintId);
 
                 var totalWeighting = RESTPortal.requestHandler.Get_total_weighting_for_sprint(p.sprintId);
 
