@@ -31,10 +31,12 @@ namespace CeConsole
         }
 
 
-        public void Delete_Sprint(string id)
+        public void Delete_Sprint(string sprintId)
         {
-            throw new NotImplementedException();
+            var wc = new WebClient();
+            wc.UploadString(EndpointAddress + $"/api/sprints/{sprintId}", "Delete", "");
         }
+
 
         public ComparisonPairsDto ComparisonPairs(string id)
         {

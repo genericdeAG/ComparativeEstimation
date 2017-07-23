@@ -37,8 +37,11 @@ namespace CeConsole
         public static void Delete(
             [Required, Aliases("id")] string sprintId)
         {
-            Console.WriteLine("del sprint {0}", sprintId);
+            var server = new RESTProvider();
+            server.Delete_Sprint(sprintId);
+            Console.WriteLine("sprint deleted: {0}", sprintId);
         }
+
 
         [Verb(Aliases = "w")]
         public static void Watch(
