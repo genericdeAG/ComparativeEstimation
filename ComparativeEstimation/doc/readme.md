@@ -12,7 +12,7 @@ abcd1234 // ID des Sprint
 
 ## Vergleichspaare abholen (Dev)
 ```
-GET /api/comparisonpairs/{sprintId}
+GET /api/sprints/{sprintId}/comparisonpairs
 In:
 Out:
 200 OK

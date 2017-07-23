@@ -35,7 +35,7 @@ namespace CeRestServerNancy
             };
 
 
-            Get["/api/comparisonpairs/{sprintId}"] = p => {
+            Get["/api/sprints/{sprintId}/comparisonpairs"] = p => {
                 Console.WriteLine("RESTPortal.Comparison pairs queried of {0}", p.sprintId);
 
                 var pairs = RESTPortal.requestHandler.ComparisonPairs(p.sprintId);

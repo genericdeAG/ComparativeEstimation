@@ -38,9 +38,14 @@ namespace CeConsole
         }
 
 
-        public ComparisonPairsDto ComparisonPairs(string id)
+        public ComparisonPairsDto ComparisonPairs(string sprintId)
         {
-            throw new NotImplementedException();
+            var wc = new WebClient();
+            var resultJson = wc.DownloadString(EndpointAddress + $"/api/sprints/{sprintId}/comparisonpairs");
+
+            var json = new JavaScriptSerializer();
+            var comparisonpairs = json.Deserialize<ComparisonPairsDto>(resultJson);
+            return comparisonpairs;
         }
 
 

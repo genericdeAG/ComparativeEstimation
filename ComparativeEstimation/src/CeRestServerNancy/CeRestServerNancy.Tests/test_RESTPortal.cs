@@ -58,7 +58,7 @@ namespace CeRestServerNancy.Tests
             using (new RESTServer("http://localhost:8080", rh))
             {
                 var wc = new WebClient();
-                var resultJson = wc.DownloadString("http://localhost:8080/api/comparisonpairs/42");
+                var resultJson = wc.DownloadString("http://localhost:8080/api/sprints/42/comparisonpairs");
                 Console.WriteLine(resultJson);
 
                 var json = new JavaScriptSerializer();

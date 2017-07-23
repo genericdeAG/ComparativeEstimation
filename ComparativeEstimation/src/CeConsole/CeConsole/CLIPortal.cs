@@ -61,7 +61,14 @@ namespace CeConsole
         public static void Vote(
             [Required, Aliases("id")] string sprintId)
         {
-            Console.WriteLine("vote for {0}", sprintId);
+            var server = new RESTProvider();
+            var comparisonpairs = server.ComparisonPairs(sprintId);
+            Console.WriteLine("Compare the following user story pairs of sprint {0}:", comparisonpairs.SprintId);
+            foreach(var cp in comparisonpairs.Pairs) {
+                Console.WriteLine($"{cp.Id}.a) {cp.A}");
+                Console.WriteLine($"{cp.Id}.b) {cp.B}");
+                Console.WriteLine();
+            }
         }
     }
 }
