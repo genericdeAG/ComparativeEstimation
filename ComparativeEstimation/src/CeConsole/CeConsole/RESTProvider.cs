@@ -43,14 +43,22 @@ namespace CeConsole
             throw new NotImplementedException();
         }
 
+
         public void Submit_voting(string sprintId, VotingDto voting, Action onOk, Action<InconsistentVotingDto> onInconsistency)
         {
             throw new NotImplementedException();
         }
 
-        public TotalWeightingDto Get_total_weighting_for_sprint(string id)
+
+        public TotalWeightingDto Get_total_weighting_for_sprint(string sprintId)
         {
-            throw new NotImplementedException();
+            var wc = new WebClient();
+            var resultJson = wc.DownloadString(EndpointAddress + $"/api/sprints/{sprintId}/totalweighting");
+
+            var json = new JavaScriptSerializer();
+            var totalWeighting = json.Deserialize<TotalWeightingDto>(resultJson);
+
+            return totalWeighting;
         }
     }
 }

@@ -47,8 +47,15 @@ namespace CeConsole
         public static void Watch(
             [Required, Aliases("id")] string sprintId)
         {
-            Console.WriteLine("watch sprint {0}", sprintId);
+            var server = new RESTProvider();
+            var totalWeighting = server.Get_total_weighting_for_sprint(sprintId);
+
+            Console.WriteLine("Total weighting of sprint '{0}':", totalWeighting.SprintId);
+            for (var i = 0; i < totalWeighting.Stories.Length; i++)
+                Console.WriteLine($"  {i + 1}. {totalWeighting.Stories[i]}");
+            Console.WriteLine("Number of votings: {0} at {1}", totalWeighting.NumberOfVotings, DateTime.Now);
         }
+
 
         [Verb(Aliases = "v")]
         public static void Vote(
