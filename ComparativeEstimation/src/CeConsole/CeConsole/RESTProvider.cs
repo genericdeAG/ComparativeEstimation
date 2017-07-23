@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Script.Serialization;
@@ -51,7 +52,31 @@ namespace CeConsole
 
         public void Submit_voting(string sprintId, VotingDto voting, Action onOk, Action<InconsistentVotingDto> onInconsistency)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var json = new JavaScriptSerializer();
+                var jsonVoting = json.Serialize(voting);
+
+                var wc = new WebClient();
+                wc.Headers.Add("Content-Type", "application/json");
+                wc.UploadString(EndpointAddress + $"/api/sprints/{sprintId}/votings", "Post", jsonVoting);
+                onOk();
+            }
+            catch (WebException e)
+            {
+                var response = (HttpWebResponse)e.Response;
+                if  ((int)response.StatusCode == 422) {
+                    var sr = new StreamReader(response.GetResponseStream());
+                    var jsonIv = sr.ReadToEnd();
+
+                    var json = new JavaScriptSerializer();
+                    var iv = json.Deserialize<InconsistentVotingDto>(jsonIv);
+                    onInconsistency(iv);
+                }
+                else {
+                    throw e;
+                }
+            }
         }
 
 

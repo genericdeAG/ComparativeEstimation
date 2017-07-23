@@ -39,7 +39,7 @@ namespace CeConsole
         {
             var server = new RESTProvider();
             server.Delete_Sprint(sprintId);
-            Console.WriteLine("sprint deleted: {0}", sprintId);
+            Console.WriteLine("sprint deleted: '{0}'", sprintId);
         }
 
 
@@ -63,12 +63,48 @@ namespace CeConsole
         {
             var server = new RESTProvider();
             var comparisonpairs = server.ComparisonPairs(sprintId);
-            Console.WriteLine("Compare the following user story pairs of sprint {0}:", comparisonpairs.SprintId);
-            foreach(var cp in comparisonpairs.Pairs) {
-                Console.WriteLine($"{cp.Id}.a) {cp.A}");
-                Console.WriteLine($"{cp.Id}.b) {cp.B}");
-                Console.WriteLine();
+            Console.WriteLine("Compare the following user story pairs of sprint '{0}':", comparisonpairs.SprintId);
+
+            var weightings = new List<CeContracts.dto.WeightedComparisonPairDto>();
+            for (var i = 0; i < comparisonpairs.Pairs.Length; i++) {
+                var cp = comparisonpairs.Pairs[i];
+
+                CeContracts.dto.Selection selection;
+                while (true) {
+                    Console.WriteLine($"{i + 1}.a) {cp.A}");
+                    Console.WriteLine($"{i + 1}.b) {cp.B}");
+                    Console.Write("vote for a) or b): ");
+                    var voteText = Console.ReadLine();
+                    if (voteText.Length > 0) {
+                        if (voteText.ToLower()[0] == 'a') {
+                            selection = CeContracts.dto.Selection.A;
+                            break;
+                        }
+                        else if (voteText.ToLower()[0] == 'b') {
+                            selection = CeContracts.dto.Selection.B;
+                            break;
+                        }
+                    }
+                }
+
+                weightings.Add(new CeContracts.dto.WeightedComparisonPairDto{
+                    Id = cp.Id,
+                    Selection = selection
+                });
             }
+
+            var voting = new CeContracts.dto.VotingDto { 
+                VoterId = "",
+                Weightings = weightings.ToArray()
+            };
+
+            server.Submit_voting(comparisonpairs.SprintId, voting,
+                () => {
+                    Console.WriteLine("voting successfully submitted for sprint '{0}'!", comparisonpairs.SprintId);
+                },
+                (inconsistency) => {
+                    Console.WriteLine("voting rejected! Inconsistency detected. Try again.");
+            });
         }
     }
 }
