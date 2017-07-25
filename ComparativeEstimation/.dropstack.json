@@ -3,9 +3,9 @@
   "instances": 1,
   "type": "mono",
   "excludes": [
-    "bin/*",
-    "obj/*",
-    "packages/*"
+    "**/bin/*",
+    "**/obj/*",
+    "**/packages/*"
   ],
   "name": "wdrssjin",
   "serviceUrl": "wdrssjin.cloud.dropstack.run"
