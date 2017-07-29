@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eventstore", "eventstore\eventstore.csproj", "{B9F5A316-927F-47C1-9AF5-FE8ABC4E34AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eventstore.tests", "eventstore.tests\eventstore.tests.csproj", "{7D2C70FB-1EE5-4B76-BF81-36880D59FFDE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9F5A316-927F-47C1-9AF5-FE8ABC4E34AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9F5A316-927F-47C1-9AF5-FE8ABC4E34AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9F5A316-927F-47C1-9AF5-FE8ABC4E34AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9F5A316-927F-47C1-9AF5-FE8ABC4E34AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D2C70FB-1EE5-4B76-BF81-36880D59FFDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D2C70FB-1EE5-4B76-BF81-36880D59FFDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D2C70FB-1EE5-4B76-BF81-36880D59FFDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D2C70FB-1EE5-4B76-BF81-36880D59FFDE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
