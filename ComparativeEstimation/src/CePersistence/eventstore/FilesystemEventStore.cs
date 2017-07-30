@@ -2,29 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace eventstore
 {
-    public class Event {
-        public string SequenceNumber;
-        public string Name;
-        public string ContextId;
-        public string Payload;
-        public DateTime Timestamp = DateTime.Now;
-    }
-
-    public interface IEventStore {
-        string Append(Event e);
-        string[] Append(IEnumerable<Event> events);
-
-        IEnumerable<Event> Replay();
-        IEnumerable<Event> Replay(string contextId);
-
-        event Action<IEnumerable<Event>> OnAppended;
-    }
-
-
     public class FilesystemEventStore : IEventStore
     {
         readonly string folderPath;
@@ -66,7 +46,51 @@ namespace eventstore
             return contextPath;
         }
 
-        private string Serialize(Event e) {
+
+        private string Next_sequence_number() {
+            var t = DateTime.Now.Ticks;
+            return string.Format("{0:00000000000000000000}", t);
+        }
+
+
+
+        public IEnumerable<Event> Replay() {
+            var contextIds = Compile_all_contexts(this.folderPath);
+            var events = Replay(contextIds);
+            return Ensure_ordered_events(events);
+
+        }
+
+        IEnumerable<Event> Replay(IEnumerable<string> contextIds) 
+            => contextIds.SelectMany(Replay_unordered);
+
+        public IEnumerable<Event> Replay(string contextId) {
+            var events = Replay_unordered(contextId);
+            return Ensure_ordered_events(events);
+        }
+
+        private IEnumerable<Event> Replay_unordered(string contextId) {
+            var eventFilePaths = Compile_filenames(contextId);
+            return Read_events(eventFilePaths);
+        }
+
+        private IEnumerable<string> Compile_filenames(string contextId) {
+            var contextFolderPath = Path.Combine(this.folderPath, contextId);
+            return Directory.GetFiles(contextFolderPath, "*.txt");
+        }
+
+        private IEnumerable<Event> Read_events(IEnumerable<string> eventFilePaths) {
+            return eventFilePaths.Select(Read_event);
+        }
+
+        private Event Read_event(string eventFilePath) {
+            var eventText = File.ReadAllText(eventFilePath);
+            var e = Deserialize(eventText, eventFilePath);
+            return e;
+        }
+
+
+        private static string Serialize(Event e) {
             var eventText = new StringWriter();
             eventText.WriteLine(e.Name);
             eventText.WriteLine("{0:O}", e.Timestamp);
@@ -74,24 +98,28 @@ namespace eventstore
             return eventText.ToString();
         }
 
+        private static Event Deserialize(string eventText, string eventFilePath) {
+            var sequenceNumber = Path.GetFileNameWithoutExtension(eventFilePath);
+            var contextId = Path.GetDirectoryName(eventFilePath);
 
+            var sr = new StringReader(eventText);
+            var name = sr.ReadLine();
+            var timestamp = DateTime.Parse(sr.ReadLine());
+            var payload = sr.ReadToEnd().TrimEnd();
 
-
-        public IEnumerable<Event> Replay()
-        {
-            throw new NotImplementedException();
+            return new Event { 
+                SequenceNumber = sequenceNumber,
+                Name = name,
+                ContextId = contextId,
+                Timestamp = timestamp,
+                Payload = payload
+            };
         }
 
-        public IEnumerable<Event> Replay(string contextId)
-        {
-            throw new NotImplementedException();
-        }
 
+        static IEnumerable<Event> Ensure_ordered_events(IEnumerable<Event> events) => events.OrderBy(e => e.SequenceNumber);
 
-        private string Next_sequence_number() {
-            var t = DateTime.Now.Ticks;
-            return string.Format("{0:00000000000000000000}", t);
-        }
+        static IEnumerable<string> Compile_all_contexts(string folderPath) => Directory.GetDirectories(folderPath);
 
 
         public event Action<IEnumerable<Event>> OnAppended;
