@@ -12,9 +12,10 @@ namespace CeRepository
     }
 
     public class Voting {
-        public string VoterId { get; }
-        public int[] UserStoryIndexes { get; }
+        public string VoterId { get; private set; }
+        public int[] UserStoryIndexes { get; private set; }
 
+        public Voting() {}
         public Voting(string voterId, int[] userStoryIndexes) {
             VoterId = voterId;
             UserStoryIndexes = userStoryIndexes;
