@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eventstore", "eventstore\ev
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eventstore.tests", "eventstore.tests\eventstore.tests.csproj", "{7D2C70FB-1EE5-4B76-BF81-36880D59FFDE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CeRepository", "CeRepository\CeRepository.csproj", "{4493B2F5-5501-4980-A3E4-CDC2F6C3E558}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CeRepository.tests", "CeRepository.tests\CeRepository.tests.csproj", "{13C9C633-AA87-4C49-83C6-9F1FF205932D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,5 +23,13 @@ Global
 		{7D2C70FB-1EE5-4B76-BF81-36880D59FFDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D2C70FB-1EE5-4B76-BF81-36880D59FFDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D2C70FB-1EE5-4B76-BF81-36880D59FFDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4493B2F5-5501-4980-A3E4-CDC2F6C3E558}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4493B2F5-5501-4980-A3E4-CDC2F6C3E558}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4493B2F5-5501-4980-A3E4-CDC2F6C3E558}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4493B2F5-5501-4980-A3E4-CDC2F6C3E558}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13C9C633-AA87-4C49-83C6-9F1FF205932D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13C9C633-AA87-4C49-83C6-9F1FF205932D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13C9C633-AA87-4C49-83C6-9F1FF205932D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13C9C633-AA87-4C49-83C6-9F1FF205932D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

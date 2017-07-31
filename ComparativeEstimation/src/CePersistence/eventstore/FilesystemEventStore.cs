@@ -100,7 +100,7 @@ namespace eventstore
 
         private static Event Deserialize(string eventText, string eventFilePath) {
             var sequenceNumber = Path.GetFileNameWithoutExtension(eventFilePath);
-            var contextId = Path.GetDirectoryName(eventFilePath);
+            var contextId = Path.GetFileName(Path.GetDirectoryName(eventFilePath));
 
             var sr = new StringReader(eventText);
             var name = sr.ReadLine();
@@ -119,9 +119,10 @@ namespace eventstore
 
         static IEnumerable<Event> Ensure_ordered_events(IEnumerable<Event> events) => events.OrderBy(e => e.SequenceNumber);
 
-        static IEnumerable<string> Compile_all_contexts(string folderPath) => Directory.GetDirectories(folderPath);
+        static IEnumerable<string> Compile_all_contexts(string folderPath)
+            => Directory.GetDirectories(folderPath).Select(Path.GetFileName);
 
 
-        public event Action<IEnumerable<Event>> OnAppended;
+        public event Action<IEnumerable<Event>> OnAppended = _ => { };
     }
 }

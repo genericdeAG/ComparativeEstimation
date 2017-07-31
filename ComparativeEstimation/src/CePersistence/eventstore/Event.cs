@@ -6,7 +6,7 @@ namespace eventstore
         public string SequenceNumber;
         public string Name;
         public string ContextId;
-        public string Payload;
+        public string Payload = "";
         public DateTime Timestamp = DateTime.Now;
     }
 }
