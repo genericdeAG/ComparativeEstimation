@@ -46,6 +46,12 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="eventstore">
+      <HintPath>..\..\..\bin\eventstore.dll</HintPath>
+    </Reference>
+    <Reference Include="CeWeighting">
+      <HintPath>..\..\..\bin\CeWeighting.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RequestHandlerTests.cs" />

@@ -4,6 +4,11 @@ cd src/CeContracts
 nuget restore
 msbuild CeContracts.sln /t:"Clean;Rebuild" /p:"Configuration=Release"
 
+cd ../CePersistence
+nuget restore
+msbuild eventstore/eventstore.csproj /t:"Clean;Rebuild" /p:"Configuration=Release"
+msbuild CeRepository/CeRepository.csproj /t:"Clean;Rebuild" /p:"Configuration=Release"
+
 cd ../CeWeighting
 nuget restore
 msbuild Implementation/CeWeighting.csproj /t:"Clean;Rebuild" /p:"Configuration=Release"

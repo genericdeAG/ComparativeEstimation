@@ -41,6 +41,12 @@
     <Reference Include="CeContracts">
       <HintPath>..\..\..\bin\CeContracts.dll</HintPath>
     </Reference>
+    <Reference Include="CeRepository">
+      <HintPath>..\..\..\bin\CeRepository.dll</HintPath>
+    </Reference>
+    <Reference Include="eventstore">
+      <HintPath>..\..\..\bin\eventstore.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RequestHandler.cs" />
