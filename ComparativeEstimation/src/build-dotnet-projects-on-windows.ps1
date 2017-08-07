@@ -1,0 +1,6 @@
+$msbuild = "C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe"
+& $msbuild ".\CeContracts\CeContracts.sln" 
+& $msbuild ".\CeWeighting\CeWeighting.sln"
+& $msbuild ".\CePersistence\CePersistence.sln"
+& $msbuild ".\CeDomain\CeDomain.sln"
+& $msbuild ".\CeRestServerNancy\CeRestServerNancy.sln"
