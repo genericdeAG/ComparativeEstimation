@@ -4,8 +4,10 @@ using System.Web.Script.Serialization;
 using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Responses;
+using Nancy.Extensions;
 using CeContracts;
 using CeContracts.dto;
+using System.Linq;
 
 namespace CeRestServerNancy
 {
@@ -21,17 +23,16 @@ namespace CeRestServerNancy
 
                 var sprintId = RESTPortal.requestHandler.Create_Sprint(userstories);
 
-                return sprintId;
+                return Enable_CORS((Response)sprintId);
             };
 
 
-            Delete["/api/sprints/{sprintId}"] = p =>
-            {
+            Delete["/api/sprints/{sprintId}"] = p => {
                 Console.WriteLine("RESTPortal.Delete sprint requested for {0}", p.sprintId);
 
                 RESTPortal.requestHandler.Delete_Sprint(p.sprintId);
 
-                return p.sprintId.ToString();
+                return Enable_CORS((Response)p.sprintId.ToString());
             };
 
 
@@ -44,7 +45,7 @@ namespace CeRestServerNancy
                 var jsonPairs = json.Serialize(pairs);
                 var response = (Response)jsonPairs;
                 response.ContentType = "application/json";
-                return response;
+                return Enable_CORS(response);
             };
 
 
@@ -67,7 +68,7 @@ namespace CeRestServerNancy
                         response.StatusCode = HttpStatusCode.UnprocessableEntity;
                 }));
 
-                return response;
+                return Enable_CORS(response);
             };
 
 
@@ -81,7 +82,7 @@ namespace CeRestServerNancy
                 var jsonTotalWeighting = json.Serialize(totalWeighting);
                 var response = (Response)jsonTotalWeighting;
                 response.ContentType = "application/json";
-                return response;
+                return Enable_CORS(response);
             };
 
 
@@ -89,8 +90,16 @@ namespace CeRestServerNancy
 			    Console.WriteLine("Liveness check");
 			    var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 			    var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-			    return $"Version {fvi.FileVersion} at {DateTime.Now}";
+                return $"Version {fvi.FileVersion} at {DateTime.Now}";
 			};
+        }
+
+
+        private Response Enable_CORS(Response response) {
+            var origin = Request.Headers["Origin"].FirstOrDefault();
+            if (origin != null)
+                response.Headers.Add("Access-Control-Allow-Origin", origin);
+            return response;
         }
     }
 }
