@@ -1,13 +1,15 @@
+import { RestProviderService } from './../../rest-provider/rest-provider.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-sprint-creation',
+  selector: 'sprint-creation',
   templateUrl: './sprint-creation.component.html',
-  styleUrls: ['./sprint-creation.component.css']
+  styleUrls: ['./sprint-creation.component.css'],
+  providers: [RestProviderService]
 })
 export class SprintCreationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private restProvider: RestProviderService) { }
 
   ngOnInit() {
   }

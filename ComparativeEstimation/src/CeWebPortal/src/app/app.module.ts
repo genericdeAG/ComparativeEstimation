@@ -12,8 +12,7 @@ import { WeightingResultsComponent } from './weighting/weighting-results/weighti
 
 @NgModule({
   declarations: [
-    AppComponent
-,
+    AppComponent,
     EstimationComponent,
     SprintCreationComponent,
     SprintCreationSummaryComponent,
