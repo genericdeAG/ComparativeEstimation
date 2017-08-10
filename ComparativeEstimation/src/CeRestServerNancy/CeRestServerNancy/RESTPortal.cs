@@ -17,6 +17,8 @@ namespace CeRestServerNancy
 
         public RESTPortal()
         {
+            Options["{*}"] = _ => Enable_CORS(new Response());
+
             Post["/api/sprints"] = _ => {
                 var userstories = this.Bind<string[]>();
                 Console.WriteLine("RESTPortal.Sprint creation requested: {0}", string.Join(";", userstories));
@@ -98,7 +100,10 @@ namespace CeRestServerNancy
         private Response Enable_CORS(Response response) {
             var origin = Request.Headers["Origin"].FirstOrDefault();
             if (origin != null)
+            {
                 response.Headers.Add("Access-Control-Allow-Origin", origin);
+                response.Headers.Add("Access-Control-Allow-Headers", "Content-Type");
+            }
             return response;
         }
     }

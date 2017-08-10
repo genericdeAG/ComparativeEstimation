@@ -1,3 +1,4 @@
+import { ComparisonPairsDto } from './rest-provider/ComparisonPairsDto';
 import { Component, OnInit } from '@angular/core';
 import { RestProviderService } from './rest-provider/rest-provider.service';
 
@@ -7,16 +8,26 @@ import { RestProviderService } from './rest-provider/rest-provider.service';
   styleUrls: ['./app.component.css'],
   providers: [RestProviderService]
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'app works!';
-  result = 'some result';
+  sprintId: string = 'some result';
+  comparisonPairs = new ComparisonPairsDto();
 
   constructor(private restProvider: RestProviderService) { }
 
   ngOnInit() {
     let stories: string[] = ["X", "y", "T"];
-    let id = this.restProvider.sprintId;
-    this.restProvider.createSprint(stories, "http://localhost:8080/");
-    this.result = this.restProvider.sprintId;
+    this.restProvider.baseUri = "http://localhost:8080";
+
+    this.restProvider.createSprint(stories).subscribe(id => {
+      this.sprintId = id;
+      this.restProvider.getComparisonPairsFor(this.sprintId).subscribe(cp => {
+        console.log(cp);
+        this.comparisonPairs = cp 
+        })
+    });
+
+
+
   }
 }
