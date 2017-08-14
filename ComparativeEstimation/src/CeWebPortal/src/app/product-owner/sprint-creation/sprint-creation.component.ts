@@ -8,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   providers: [RestProviderService]
 })
 export class SprintCreationComponent implements OnInit {
+  stories: string[] =  [];
+  viewModel: string = "story title"
 
   constructor(private restProvider: RestProviderService) { }
 
   ngOnInit() {
+  }
+
+  addStory(){
+    this.stories.push(this.viewModel);
   }
 
 }

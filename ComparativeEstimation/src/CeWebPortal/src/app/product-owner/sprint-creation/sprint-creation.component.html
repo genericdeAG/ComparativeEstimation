@@ -1,3 +1,22 @@
 <p>
-  sprint-creation works!
+  sprint-creation 
 </p>
+
+<p>Stories</p>
+  <ul>
+    <li *ngFor="let story of stories">
+      {{ story }}
+    </li>
+  </ul>
+
+
+<form (ngSubmit)="addStory(); addStoryForm.reset()" #addStoryForm="ngForm">
+  <div class="form-group">
+      <label for="storyTitle">Story:</label>
+      <input type="text" class="form-control" id="storyTitle" name="storyTitle" [(ngModel)]="viewModel" required #storyTitle="ngModel">
+      <div [hidden]="storyTitle.valid || storyTitle.pristine" class="alert alert-danger">
+          Please enter sprint title!
+      </div>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!addStoryForm.form.valid || addStoryForm.form.pristine">Add</button>
+</form>

@@ -1,3 +1,4 @@
+import { AppRoutes } from './app.routing';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -21,7 +22,8 @@ import { WeightingResultsComponent } from './weighting/weighting-results/weighti
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutes
   ],
   providers: [],
   bootstrap: [AppComponent]
