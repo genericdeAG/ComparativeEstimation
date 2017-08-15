@@ -1,3 +1,15 @@
 <p>
   estimation works!
 </p>
+
+<p>Comparison Pairs</p>
+<ul>
+  <li *ngFor="let pair of comparisonPairs">
+    <label>Id: {{pair.Id}}
+      <select name="selectionFor{{pair.Id}}" size="2">
+        <option>{{pair.A}}</option>
+        <option>{{pair.B}}</option>
+      </select>
+    </label>
+  </li>
+</ul>

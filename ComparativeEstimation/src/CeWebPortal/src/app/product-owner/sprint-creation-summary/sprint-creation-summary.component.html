@@ -1,3 +1,22 @@
 <p>
-  sprint-creation-summary works!
+  sprint-creation-summary
 </p>
+
+<p>
+Sprint {{sprintId}} has been created.
+</p>
+
+<p>
+To vote use this link: <a [routerLink]="['/estimation']" [queryParams]="{sprintId: sprintId}">http://localhost:8080/estimation/{{sprintId}}</a>
+</p>
+
+<p>
+  Check the weighting results here: <a [routerLink]="['/weighting-results']" [queryParams]="{sprintId: sprintId}">http://localhost:8080/weighting-results/{{sprintId}}</a>
+  </p>
+
+  <p>
+    Delete the sprint here: <a [routerLink]="['/sprint-deletion']" [queryParams]="{sprintId: sprintId}">http://localhost:8080/sprint-deletion/{{sprintId}}</a>
+    </p>
+  
+
+

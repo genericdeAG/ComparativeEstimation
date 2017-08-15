@@ -103,6 +103,7 @@ namespace CeRestServerNancy
             {
                 response.Headers.Add("Access-Control-Allow-Origin", origin);
                 response.Headers.Add("Access-Control-Allow-Headers", "Content-Type");
+                response.Headers.Add("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, DELETE");
             }
             return response;
         }

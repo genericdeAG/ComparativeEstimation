@@ -19,4 +19,8 @@
       </div>
   </div>
   <button type="submit" class="btn btn-primary" [disabled]="!addStoryForm.form.valid || addStoryForm.form.pristine">Add</button>
+  <button type="button" class="btn btn-primary" (click)="createSprintAndNavigateToSprintCreationResult()">Create Sprint</button>
 </form>
+
+
+

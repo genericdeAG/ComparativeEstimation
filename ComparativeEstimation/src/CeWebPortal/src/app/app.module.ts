@@ -1,3 +1,4 @@
+import { SprintDeletionComponent } from './product-owner/sprint-deletion/sprint-deletion.component';
 import { AppRoutes } from './app.routing';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -17,7 +18,8 @@ import { WeightingResultsComponent } from './weighting/weighting-results/weighti
     EstimationComponent,
     SprintCreationComponent,
     SprintCreationSummaryComponent,
-    WeightingResultsComponent
+    WeightingResultsComponent,
+    SprintDeletionComponent
 ],
   imports: [
     BrowserModule,

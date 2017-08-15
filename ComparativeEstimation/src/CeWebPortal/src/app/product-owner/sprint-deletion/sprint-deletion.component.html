@@ -1,0 +1,13 @@
+<p>
+  sprint-deletion
+</p>
+
+<div *ngIf="success">
+  Sprint {{sprintId}} has been deleted;
+</div>
+
+<div *ngIf="!success">Sprint {{sprintId}} could not be deleted.</div>
+
+<p>
+  <a [routerLink]="['/sprint-creation']">Create new sprint</a>
+  </p>
