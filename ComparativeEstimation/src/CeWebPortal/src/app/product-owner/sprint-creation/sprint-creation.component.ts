@@ -16,8 +16,8 @@ export class SprintCreationComponent {
     toggleFocusAddInput = false;
     toggleFocusChangeInput = false;
 
-    defaultIndexOnChange = -1;
-    indexOnChange = this.defaultIndexOnChange;
+    emptyStory = "";
+    savedStoryOnChange = this.emptyStory;
 
     constructor(
         private restProvider: RestProviderService,
@@ -26,37 +26,31 @@ export class SprintCreationComponent {
     onAdd() {
         if (this.validateInput(this.inputStory.trim())) {
             this.stories.push(this.inputStory.trim());
-            this.inputStory = "";
+            this.inputStory = this.emptyStory;
             this.checkIsAddStoryEnabled();
         }
         this.setFocus();
     }
     
     onDelete(index: number) {
-        console.log(this.stories);
-        var savedStory = this.stories[this.indexOnChange];
         this.stories.splice(index, 1);
         this.checkIsAddStoryEnabled();
-        if (this.indexOnChange != this.defaultIndexOnChange)
-            this.indexOnChange = this.stories.indexOf(savedStory);
         this.setFocus();
-        console.log(this.stories);
     }
 
     onChangeStart(index: number) {
-        this.indexOnChange = index;
+        this.savedStoryOnChange = this.stories[index];
         this.changeStory = this.stories[index];
         this.setFocus();
     }
 
     onChangeComplete(index: number) {
-        var savedStory = this.stories[this.indexOnChange];
         this.stories.splice(index, 1);
         if (this.validateInput(this.changeStory.trim())) {
-            this.indexOnChange = this.defaultIndexOnChange;
+            this.savedStoryOnChange = this.emptyStory;
             this.stories.splice(index, 0, this.changeStory.trim());
         } else {
-            this.stories.splice(index, 0, savedStory);
+            this.stories.splice(index, 0, this.savedStoryOnChange);
         }
         this.setFocus();
     }
@@ -83,7 +77,7 @@ export class SprintCreationComponent {
     }
 
     setFocus() {
-        if (this.indexOnChange == this.defaultIndexOnChange) {
+        if (this.savedStoryOnChange == this.emptyStory) {
             this.toggleFocusAddInput = !this.toggleFocusAddInput;
         } else {
             this.toggleFocusChangeInput = !this.toggleFocusChangeInput;
