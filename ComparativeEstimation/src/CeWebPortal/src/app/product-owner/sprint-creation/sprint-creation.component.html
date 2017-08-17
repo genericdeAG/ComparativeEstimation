@@ -1,26 +1,45 @@
-<p>
-  sprint-creation 
-</p>
+<div class="container">
+    <div class="page-header">
+        <h1>Comparative Estimation<br>
+            <small>Sprint Creation</small></h1>
+    </div>
 
-<p>Stories</p>
-  <ul>
-    <li *ngFor="let story of stories">
-      {{ story }}
-    </li>
-  </ul>
-
-
-<form (ngSubmit)="addStory(); addStoryForm.reset()" #addStoryForm="ngForm">
-  <div class="form-group">
-      <label for="storyTitle">Story:</label>
-      <input type="text" class="form-control" id="storyTitle" name="storyTitle" [(ngModel)]="viewModel" required #storyTitle="ngModel">
-      <div [hidden]="storyTitle.valid || storyTitle.pristine" class="alert alert-danger">
-          Please enter sprint title!
-      </div>
-  </div>
-  <button type="submit" class="btn btn-primary" [disabled]="!addStoryForm.form.valid || addStoryForm.form.pristine">Add</button>
-  <button type="button" class="btn btn-primary" (click)="createSprintAndNavigateToSprintCreationResult()">Create Sprint</button>
-</form>
-
-
-
+    <ce-panel class="col-lg-8">
+        <ce-panel-header>
+            User Stories
+        </ce-panel-header>
+        <ce-panel-content>
+                <ng-container *ngFor="let story of stories; let i = index">
+                    <div *ngIf="indexOnChange != i" class="input-group ce-margin-down">
+                        <button (click)="onChangeStart(i)" class="btn btn-default ce-btn-list">{{ story }}</button>
+                        <span class="input-group-btn">
+                            <button (click)="onDelete(i)" class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                    </div>
+                    <div *ngIf="indexOnChange == i" class="input-group">
+                        <input [ceFocus]="toggleFocusChangeInput" (keyup.enter)="onChangeComplete(i)" type="text" class="form-control list-group-item" [(ngModel)]="changeStory">
+                        <span class="input-group-btn">
+                            <button (click)="onChangeComplete(i)" class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </button>
+                        </span>
+                    </div>
+                </ng-container>
+                
+            <div *ngIf="indexOnChange == defaultIndexOnChange" class="input-group">
+                <input [ceFocus]="toggleFocusAddInput" (keyup.enter)="onAdd()" type="text" class="form-control list-group-item" placeholder="Enter user story..." [(ngModel)]="inputStory">
+                <span class="input-group-btn">
+                    <button (click)="onAdd()" class="btn btn-default" type="button">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+                </span>
+            </div>
+            <div class="ce-btn-sprint-create">
+                <button [class.disabled]="!isAddStoryEnabled" type="button" class="btn btn-primary" (click)="onCreateSprint()">Create Sprint</button>
+            </div>
+        </ce-panel-content>
+    </ce-panel>
+    <div class="col-lg-4"></div>
+</div>

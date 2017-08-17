@@ -5,11 +5,17 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { RestProviderService } from './rest-provider/rest-provider.service';
+
 import { AppComponent } from './app.component';
 import { EstimationComponent } from './estimator/estimation/estimation.component';
 import { SprintCreationComponent } from './product-owner/sprint-creation/sprint-creation.component';
 import { SprintCreationSummaryComponent } from './product-owner/sprint-creation-summary/sprint-creation-summary.component';
 import { WeightingResultsComponent } from './weighting/weighting-results/weighting-results.component';
+import { CePanelComponent } from './components/ce-panel/ce-panel.component';
+import { CePanelContentComponent } from './components/ce-panel/ce-panel-content.component';
+import { CePanelHeaderComponent } from './components/ce-panel/ce-panel-header.component';
+import { CeFocusDirective } from './directives/ce-focus.directive';
 
 
 @NgModule({
@@ -19,7 +25,11 @@ import { WeightingResultsComponent } from './weighting/weighting-results/weighti
     SprintCreationComponent,
     SprintCreationSummaryComponent,
     WeightingResultsComponent,
-    SprintDeletionComponent
+    SprintDeletionComponent,
+    CePanelComponent,
+    CePanelContentComponent,
+    CePanelHeaderComponent,
+    CeFocusDirective
 ],
   imports: [
     BrowserModule,
@@ -27,7 +37,9 @@ import { WeightingResultsComponent } from './weighting/weighting-results/weighti
     HttpModule,
     AppRoutes
   ],
-  providers: [],
+  providers: [
+    RestProviderService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

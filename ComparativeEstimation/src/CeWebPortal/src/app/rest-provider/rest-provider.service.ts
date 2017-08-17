@@ -7,39 +7,40 @@ import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
 import "rxjs/add/operator/map";
+import { environment } from "environments/environment";
 
 @Injectable()
 export class RestProviderService {
-    baseUri: string = "http://localhost:8080";
+    baseUri: string = environment.apiEndpoint;
 
 constructor(private http: Http) { }
    
     createSprint(stories: string[]): Observable<string> {
         return this.http
-            .post(this.baseUri + '/api/sprints', JSON.stringify(stories), this.createRequestOptions())
+            .post(environment.apiEndpoint + '/sprints', JSON.stringify(stories), this.createRequestOptions())
             .map(res => { return res.text()});
     }
 
     getComparisonPairsFor(sprintId: string): Observable<ComparisonPairsDto> {
         return this.http
-            .get(this.baseUri + '/api/sprints/' + sprintId + '/comparisonpairs', this.createRequestOptions())
+            .get(environment.apiEndpoint + '/sprints/' + sprintId + '/comparisonpairs', this.createRequestOptions())
             .map(res => { return res.json()});
     }
 
     submitVoting(sprintId: string, voting: Voting): Observable<InconsistentVote> {
         return this.http
-        .post(this.baseUri + '/api/sprints/' + sprintId + '/votings', JSON.stringify(voting), this.createRequestOptions())
+        .post(environment.apiEndpoint + '/sprints/' + sprintId + '/votings', JSON.stringify(voting), this.createRequestOptions())
         .map(res => { return res.json()}); //im Normalfall gibt es hier kein JSON - nur bei Inkonsistenzen. Ggf. gibt es hier bessere Lösung?
     }
 
     getTotalWeighting(sprintId: string): Observable<TotalWeighting> {
         return this.http
-        .get(this.baseUri + '/api/sprints/' + sprintId + '/totalweighting', this.createRequestOptions())
+        .get(environment.apiEndpoint + '/sprints/' + sprintId + '/totalweighting', this.createRequestOptions())
         .map(res => { return res.json()});
     }
 
     deleteSprint(sprintId: string) {
-        return this.http.delete(this.baseUri + '/api/sprints/' + sprintId, this.createRequestOptions());
+        return this.http.delete(environment.apiEndpoint + '/sprints/' + sprintId, this.createRequestOptions());
     }
 
     private createRequestOptions(): RequestOptions {

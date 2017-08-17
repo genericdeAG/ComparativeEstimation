@@ -1,0 +1,15 @@
+.ce-btn-sprint-create {
+    margin-top: 15px;
+}
+
+.ce-btn-list {
+    width: 100%;
+    text-align: left;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    white-space: pre;
+}
+
+.badge {
+    cursor: pointer;
+}

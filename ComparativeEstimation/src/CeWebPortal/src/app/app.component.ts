@@ -1,18 +1,10 @@
-import { ComparisonPairsDto } from './rest-provider/ComparisonPairsDto';
-import { Component, OnInit } from '@angular/core';
-import { RestProviderService } from './rest-provider/rest-provider.service';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [RestProviderService]
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  title = 'Comparative Estimation';
+export class AppComponent {
 
-  constructor(private restProvider: RestProviderService) { }
-
-  ngOnInit() {
-  }
 }
