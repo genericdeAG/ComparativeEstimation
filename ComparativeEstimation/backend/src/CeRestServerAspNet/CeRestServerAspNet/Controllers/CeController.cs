@@ -56,9 +56,13 @@ namespace CeRestServerAspNet.Controllers
         }
 
         [Route("api/sprints")]
-        public string Post([FromBody]IEnumerable<string> stories)
+        public HttpResponseMessage Post([FromBody]IEnumerable<string> stories)
         {
-            return RequestHandler.Create_Sprint(stories);
+            var id = RequestHandler.Create_Sprint(stories);
+            var res = new HttpResponseMessage();
+            res.Content = new StringContent(id, System.Text.Encoding.UTF8, "text/plain");
+            return res;
+
         }
 
         [Route("api/sprints/{sprintId}/votings")]
