@@ -44,7 +44,7 @@ namespace CeRestServerAspNet.Controllers
         }
 
         [HttpGet]
-        [Route("/api/sprints/{sprintId}/totalweighting")]
+        [Route("api/sprints/{sprintId}/totalweighting")]
         public HttpResponseMessage GetTotalWeighting(string sprintId)
         {
             var totalWeighting = RequestHandler.Get_total_weighting_for_sprint(sprintId);
@@ -61,7 +61,7 @@ namespace CeRestServerAspNet.Controllers
             return RequestHandler.Create_Sprint(stories);
         }
 
-        [Route("/api/sprints/{sprintId}/votings")]
+        [Route("api/sprints/{sprintId}/votings")]
         public HttpResponseMessage Post(string sprintId, [FromBody]VotingDto voting)
         {
             var res = new HttpResponseMessage();
