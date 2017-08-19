@@ -80,9 +80,9 @@ namespace CeRestServerAspNet.Controllers
         }
 
         [Route("api/sprints/{sprintId}")]
-        public void Delete(string id)
+        public void Delete(string sprintId)
         {
-            RequestHandler.Delete_Sprint(id);
+            RequestHandler.Delete_Sprint(sprintId);
         }
     }
 }
