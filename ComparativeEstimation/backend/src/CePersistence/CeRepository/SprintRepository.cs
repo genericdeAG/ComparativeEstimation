@@ -23,7 +23,7 @@ namespace CeRepository
     }
 
 
-    public class Sprint : IEventSource
+    public class Sprint : IEventSource, ISprint
     {
         public string Id { get; private set; }
         public string[] UserStories { get; private set; }
@@ -99,7 +99,7 @@ namespace CeRepository
     }
 
 
-    public class SprintRepository
+    public class SprintRepository: ISprintRepository
     {
         readonly IEventStore eventStore;
 
@@ -109,7 +109,7 @@ namespace CeRepository
         }
 
 
-        public Sprint Create(string[] userStories) {
+        public ISprint Create(string[] userStories) {
             var sprint = new Sprint(Guid.NewGuid().ToString(), userStories);
 
             var es = (IEventSource)sprint;
@@ -119,14 +119,14 @@ namespace CeRepository
         }
 
 
-        public void Store(Sprint sprint) {
+        public void Store(ISprint sprint) {
             var es = (IEventSource)sprint;
             this.eventStore.Append(es.Events);
             es.Clear();
         }
 
 
-        public Sprint Load(string sprintId) {
+        public ISprint Load(string sprintId) {
             var events = this.eventStore.Replay(sprintId);
             return Sprint.Build(events);
         }
