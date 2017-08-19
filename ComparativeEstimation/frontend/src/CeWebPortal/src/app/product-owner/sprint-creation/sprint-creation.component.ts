@@ -8,16 +8,16 @@ import { Router } from '@angular/router';
     styleUrls: ['./sprint-creation.component.css']
 })
 export class SprintCreationComponent {
+    emptyStory = "";
+    
     stories: string[] = [];
-    inputStory: string = "";
-    changeStory: string = "";
     isAddStoryEnabled = false;
+    inputStory: string = this.emptyStory;
+    changeStory: string = this.emptyStory;
+    savedStoryOnChange = this.emptyStory;
     
     toggleFocusAddInput = false;
     toggleFocusChangeInput = false;
-
-    emptyStory = "";
-    savedStoryOnChange = this.emptyStory;
 
     constructor(
         private restProvider: RestProviderService,

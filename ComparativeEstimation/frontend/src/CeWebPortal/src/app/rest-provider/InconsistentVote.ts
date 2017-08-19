@@ -1,4 +1,6 @@
 export class InconsistentVote {
-    SprintId: string;
-    ComparisonPairId: string
+    constructor(
+        public SprintId: string = "",
+        public ComparisonPairId: string = ""
+    ) { }
 }

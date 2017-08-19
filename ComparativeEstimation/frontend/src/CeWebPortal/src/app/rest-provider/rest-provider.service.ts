@@ -5,8 +5,6 @@ import { ComparisonPairsDto } from './ComparisonPairsDto';
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/toPromise';
-import "rxjs/add/operator/map";
 import { environment } from "environments/environment";
 
 @Injectable()
@@ -27,10 +25,13 @@ constructor(private http: Http) { }
             .map(res => { return res.json()});
     }
 
-    submitVoting(sprintId: string, voting: Voting): Observable<InconsistentVote> {
+    submitVoting(sprintId: string, voting: Voting): Observable<InconsistentVote | boolean> {
         return this.http
         .post(environment.apiEndpoint + '/sprints/' + sprintId + '/votings', JSON.stringify(voting), this.createRequestOptions())
-        .map(res => { return res.json()}); //im Normalfall gibt es hier kein JSON - nur bei Inkonsistenzen. Ggf. gibt es hier bessere Lösung?
+        .map((res: Response) => { 
+            return false;
+        })
+        .catch((error: Response) => Observable.throw(error.json()));
     }
 
     getTotalWeighting(sprintId: string): Observable<TotalWeighting> {

@@ -1,5 +1,8 @@
 import { Weighting } from './Weighting';
 export class Voting {
-    VoterId: string;
-    Weightings: Weighting[];
+    constructor(
+        public VoterId: string,
+        public Weightings: Weighting[]
+    ) {  }
+
 }

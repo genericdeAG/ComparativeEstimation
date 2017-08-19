@@ -2,14 +2,24 @@
     margin-top: 15px;
 }
 
-.ce-btn-list {
-    width: 100%;
-    text-align: left;
+.ce-box {
+    display: flex;
+    margin-top: -1px;
+}
+  
+.ce-btn-left {
+    flex: 1;  /* grow */
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
-    white-space: pre;
+    text-align: left;
+    white-space: pre-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
-.badge {
-    cursor: pointer;
-}
+  
+.ce-btn-right {
+    flex: 0 0 40px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    margin-left: -1px;
+} 

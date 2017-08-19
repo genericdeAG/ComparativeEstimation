@@ -1,4 +1,6 @@
 export class Weighting {
-    Id: string;
-    Selection: string;
+    constructor(
+        public Id: string,
+        public Selection: string
+    ) {};
 }
