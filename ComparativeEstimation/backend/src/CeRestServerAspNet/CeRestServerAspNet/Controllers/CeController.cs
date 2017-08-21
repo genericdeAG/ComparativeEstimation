@@ -15,15 +15,15 @@ namespace CeRestServerAspNet.Controllers
 {
     public class CeController : ApiController
     {
-        private static RequestHandlerAzure _requestHandler;
+        private static RequestHandler _requestHandler;
 
-        public RequestHandlerAzure RequestHandler
+        public RequestHandler RequestHandler
         {
             get
             {
                 if (_requestHandler == null)
                 {
-                    _requestHandler = new RequestHandlerAzure(new Weighting());
+                    _requestHandler = new RequestHandler(new Weighting());
                 }
 
                 return _requestHandler;
