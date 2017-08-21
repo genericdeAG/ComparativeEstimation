@@ -16,28 +16,27 @@ constructor(private http: Http) { }
     createSprint(stories: string[]): Observable<string> {
         return this.http
             .post(environment.apiEndpoint + '/sprints', JSON.stringify(stories), this.createRequestOptions())
-            .map(res => { return res.text()});
+            .map((res: Response) => { return res.text() });
     }
 
-    getComparisonPairsFor(sprintId: string): Observable<ComparisonPairsDto> {
+    getComparisonPairsFor(sprintId: string): Observable<ComparisonPairsDto | null> {
         return this.http
             .get(environment.apiEndpoint + '/sprints/' + sprintId + '/comparisonpairs', this.createRequestOptions())
-            .map(res => { return res.json()});
+            .map((res: Response) => { return res.json() })
+            .catch((error: Response) => Observable.throw(null));
     }
 
-    submitVoting(sprintId: string, voting: Voting): Observable<InconsistentVote | boolean> {
+    submitVoting(sprintId: string, voting: Voting): Observable<null | InconsistentVote> {
         return this.http
         .post(environment.apiEndpoint + '/sprints/' + sprintId + '/votings', JSON.stringify(voting), this.createRequestOptions())
-        .map((res: Response) => { 
-            return false;
-        })
+        .map((res: Response) => { return null; })
         .catch((error: Response) => Observable.throw(error.json()));
     }
 
     getTotalWeighting(sprintId: string): Observable<TotalWeighting> {
         return this.http
         .get(environment.apiEndpoint + '/sprints/' + sprintId + '/totalweighting', this.createRequestOptions())
-        .map(res => { return res.json()});
+        .map((res: Response) => { return res.json() });
     }
 
     deleteSprint(sprintId: string) {

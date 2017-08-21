@@ -20,6 +20,10 @@
     padding-left: 13px;
 } 
 
-.alert {
+.ce-alert-top {
+    margin: 0 0 15px;
+}
+
+.ce-alert-bottom {
     margin: 15px 0 0;
 }

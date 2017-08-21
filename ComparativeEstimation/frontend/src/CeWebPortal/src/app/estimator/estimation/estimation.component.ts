@@ -8,7 +8,7 @@ import { Weighting } from "app/rest-provider/Weighting";
 import { Voting } from "app/rest-provider/Voting";
 import { InconsistentVote } from "app/rest-provider/InconsistentVote";
 
-import { eSendStatus } from "app/eSendStatus";
+import { eConnectionStatus } from "app/eConnectionStatus";
 
 @Component({
     selector: 'app-estimation',
@@ -16,7 +16,7 @@ import { eSendStatus } from "app/eSendStatus";
     styleUrls: ['./estimation.component.css']
 })
 export class EstimationComponent implements OnInit {
-    public eSendStatus = eSendStatus;
+    public eConnectionStatus = eConnectionStatus;
     
     sprintId: string;
     comparisonPairs: ComparisonPair[];
@@ -28,7 +28,7 @@ export class EstimationComponent implements OnInit {
 
     isSendAllowed: boolean = false;
     isActionAllowed: boolean = true;
-    sendStatus: eSendStatus = eSendStatus.idle; 
+    connStatus: eConnectionStatus = eConnectionStatus.idle; 
 
     constructor(
         private restProvider: RestProviderService,
@@ -36,14 +36,22 @@ export class EstimationComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit() {
+        this.setConnectionStatus(eConnectionStatus.receiveInProgress);
         this.route.queryParams.subscribe(params => { this.sprintId = params['sprintId']; });
         this.restProvider.getComparisonPairsFor(this.sprintId)
-            .subscribe(comparisonPairsDto => {
-                this.comparisonPairs = comparisonPairsDto.Pairs;
-                for (let pair of comparisonPairsDto.Pairs) {
-                    this.weighting.push(new Weighting(pair.Id, this.stringSelectionDefault));
-                }
-            });
+            .subscribe(
+                (comparisonPairsDto: ComparisonPairsDto) => {
+                    this.comparisonPairs = comparisonPairsDto.Pairs;
+                    for (let pair of comparisonPairsDto.Pairs) {
+                        this.weighting.push(new Weighting(pair.Id, this.stringSelectionDefault));
+                    }
+                    this.setConnectionStatus(eConnectionStatus.receiveSuccess);
+                },
+                // Error
+                () => {
+                    this.setConnectionStatus(eConnectionStatus.receiveError);
+                });
+        
     }
 
     onClear() {
@@ -62,17 +70,17 @@ export class EstimationComponent implements OnInit {
 
     onSend() {
         if (this.isSendAllowed) {
-            this.setSendStatus(eSendStatus.sendInProgress);
+            this.setConnectionStatus(eConnectionStatus.sendInProgress);
             let voting: Voting = new Voting((Math.round(Math.random() * 1000)).toString(), this.weighting);
             this.restProvider.submitVoting(this.sprintId, voting)
             .subscribe(
                 // Success
-                (sucess: boolean) => {
-                    this.setSendStatus(eSendStatus.sendSuccess);
+                () => {
+                    this.setConnectionStatus(eConnectionStatus.sendSuccess);
                 },
                 // Error
                 (inconsistentVote: InconsistentVote) => {
-                    this.setSendStatus(eSendStatus.sendError);
+                    this.setConnectionStatus(eConnectionStatus.sendError);
                 });
             }
     }
@@ -80,10 +88,9 @@ export class EstimationComponent implements OnInit {
     isChecked(index: number, entry: string) {
         return (this.weighting[index].Selection == entry);
     }
-
     
     setIsActionAllowed() {
-        this.isActionAllowed = ( (this.sendStatus == eSendStatus.idle) || (this.sendStatus == eSendStatus.sendError) );
+        this.isActionAllowed = ( (this.connStatus == eConnectionStatus.receiveSuccess) || (this.connStatus == eConnectionStatus.sendError) );
     }
     
     setIsSendAllowed() {
@@ -92,8 +99,8 @@ export class EstimationComponent implements OnInit {
                              && this.weighting.every(entry => entry.Selection != this.stringSelectionDefault);
     }
     
-    setSendStatus(sendStatus: eSendStatus) {
-        this.sendStatus = sendStatus;
+    setConnectionStatus(connStatus: eConnectionStatus) {
+        this.connStatus = connStatus;
         this.setIsSendAllowed();
     }
 }

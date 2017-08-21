@@ -10,6 +10,8 @@
             Comparison Pairs
         </ce-panel-header>
         <ce-panel-content>
+            <div *ngIf="connStatus == eConnectionStatus.receiveInProgress" class="alert ce-alert-top alert-info" role="alert">Comparison pairs are loading...</div>
+            <div *ngIf="connStatus == eConnectionStatus.receiveError" class="alert ce-alert-top alert-danger" role="alert">Comparison pairs could not be loaded!</div>
             <ng-container *ngFor="let pair of comparisonPairs; let i = index">
                 <div class="btn-group ce-box">
                     <button (click)="onSelect(i, stringSelectionA)" [class.disabled]="!isActionAllowed" [class.active]="isChecked(i, stringSelectionA)" class="btn btn-default ce-btn-left">
@@ -27,9 +29,9 @@
             </ng-container>
             <button [class.disabled]="!isSendAllowed" (click)="onSend()" class="btn btn-primary">Send Weighting</button>
             <button  [class.disabled]="!isActionAllowed" (click)="onClear()" class="btn btn-secondary">Clear Weighting</button>
-            <div *ngIf="sendStatus == eSendStatus.sendInProgress" class="alert alert-info" role="alert">Weighting is processed by server.</div>
-            <div *ngIf="sendStatus == eSendStatus.sendSuccess" class="alert alert-success" role="alert">Weighting was sent successfully. Thank you for your voting!</div>
-            <div *ngIf="sendStatus == eSendStatus.sendError" class="alert alert-danger" role="alert">Weighting is inconsistent. Please correct and send again.</div>
+            <div *ngIf="connStatus == eConnectionStatus.sendInProgress" class="alert ce-alert-bottom alert-info" role="alert">Weighting is processed by server.</div>
+            <div *ngIf="connStatus == eConnectionStatus.sendSuccess" class="alert ce-alert-bottom alert-success" role="alert">Weighting was sent successfully. Thank you for your voting!</div>
+            <div *ngIf="connStatus == eConnectionStatus.sendError" class="alert ce-alert-bottom alert-danger" role="alert">An error occured. Maybe weighting is inconsistent. Please correct and try again.</div>
         </ce-panel-content>
     </ce-panel>
     <div class="col-lg-4"></div>
