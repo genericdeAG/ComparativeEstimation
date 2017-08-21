@@ -12,21 +12,14 @@ namespace CeDomain
 {
     public class RequestHandler : IRequestHandling
     {
-        private readonly ISprintRepository repo;
+        private readonly SprintRepository repo;
         private readonly IWeighting weighting;
 
-
-        //public RequestHandler(IWeighting weighting) : this(weighting, new FilesystemEventStore()) { }
-        public RequestHandler(IWeighting weighting, IEventStore eventstore) {
-            this.weighting = weighting;
-            this.repo = new SprintRepository(eventstore);
-        }
-
-        protected RequestHandler(IWeighting weighting)
+        public RequestHandler(IWeighting weighting) : this(weighting, new FilesystemEventStore()) { }
+        internal RequestHandler(IWeighting weighting, IEventStore eventstore)
         {
             this.weighting = weighting;
-            var config = new SprintBlobRepositoryConfig();
-            this.repo = new SprintBlobRepository(config);
+            this.repo = new SprintRepository(eventstore);
         }
 
 

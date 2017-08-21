@@ -31,11 +31,6 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ISprint.cs" />
-    <Compile Include="ISprintRepository.cs" />
-    <Compile Include="SprintBlob.cs" />
-    <Compile Include="SprintBlobRepository.cs" />
-    <Compile Include="SprintBlobRepositoryConfig.cs" />
     <Compile Include="SprintRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
