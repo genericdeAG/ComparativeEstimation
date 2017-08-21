@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="page-header">
+        <h1>Comparative Estimation<br>
+            <small>Sprint Total Weighting</small>
+        </h1>
+    </div>
+
+    <ce-panel class="col-lg-8">
+        <ce-panel-header>
+            Summary
+        </ce-panel-header>
+        <ce-panel-content>
+            <div *ngIf="connStatus == eConnectionStatus.receiveInProgress" class="alert ce-alert-top alert-info" role="alert">Total weighting of sprint #{{sprintId}} is loading...</div>
+            <div *ngIf="connStatus == eConnectionStatus.receiveSuccess" class="alert ce-alert-top alert-success" role="alert">Total weighting of sprint #{{sprintId}} has been loaded successfully.</div>
+            <div *ngIf="connStatus == eConnectionStatus.receiveError" class="alert ce-alert-top alert-danger" role="alert">Total weighting of sprint #{{sprintId}} could not be loaded!</div>
+            <ng-container *ngFor="let story of totalWeighting.Stories; let i = index">
+                <div class="btn-group ce-box">
+                    <button class="btn btn-default ce-btn-left">{{ i+1 }}.</button>
+                    <button class="btn btn-default ce-btn-right">{{ story }}</button>
+                </div>
+            </ng-container>
+            <div class="ce-space-small"></div>
+            <p><b>{{ totalWeighting.NumberOfVotings }} 
+                <ng-container *ngIf="totalWeighting.NumberOfVotings != 1">votings</ng-container>
+                <ng-container *ngIf="totalWeighting.NumberOfVotings == 1">voting</ng-container>
+            </b></p>
+            <button (click)="onRefresh()" class="btn btn-primary">Reload Weighting <span class="badge">{{ timerValue }}</span></button>
+        </ce-panel-content>
+    </ce-panel>
+    <div class="col-lg-4"></div>
+</div>

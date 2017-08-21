@@ -4,5 +4,4 @@ export class Voting {
         public VoterId: string,
         public Weightings: Weighting[]
     ) {  }
-
 }

@@ -1,22 +1,35 @@
-<p>
-  sprint-creation-summary
-</p>
+<div class="container">
+    <div class="page-header">
+        <h1>Comparative Estimation<br>
+            <small>Sprint Creation</small>
+        </h1>
+    </div>
 
-<p>
-Sprint {{sprintId}} has been created.
-</p>
-
-<p>
-To vote use this link: <a [routerLink]="['/estimation']" [queryParams]="{sprintId: sprintId}">http://localhost:8080/estimation/{{sprintId}}</a>
-</p>
-
-<p>
-  Check the weighting results here: <a [routerLink]="['/weighting-results']" [queryParams]="{sprintId: sprintId}">http://localhost:8080/weighting-results/{{sprintId}}</a>
-  </p>
-
-  <p>
-    Delete the sprint here: <a [routerLink]="['/sprint-deletion']" [queryParams]="{sprintId: sprintId}">http://localhost:8080/sprint-deletion/{{sprintId}}</a>
-    </p>
-  
-
-
+    <ce-panel class="col-lg-8">
+        <ce-panel-header>
+            Summary
+        </ce-panel-header>
+        <ce-panel-content>
+            <div class="alert ce-alert-top alert-success" role="alert">Sprint successfully created. Please save the following links for use:</div>
+            <div class="panel panel-default">
+                <div class="panel-heading">To vote use this link:</div>
+                <div class="panel-body">
+                    <p><a [routerLink]="['/estimation']" [queryParams]="{sprintId: sprintId}">http://localhost:8080/estimation/{{sprintId}}</a></p>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Check weighting results here:</div>
+                <div class="panel-body">
+                    <p><a [routerLink]="['/weighting-results']" [queryParams]="{sprintId: sprintId}">http://localhost:8080/weighting-results/{{sprintId}}</a></p>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Delete sprint here:</div>
+                <div class="panel-body">
+                    <p><a [routerLink]="['/sprint-deletion']" [queryParams]="{sprintId: sprintId}">http://localhost:8080/sprint-deletion/{{sprintId}}</a></p>
+                </div>
+            </div>
+        </ce-panel-content>
+    </ce-panel>
+    <div class="col-lg-4"></div>
+</div>

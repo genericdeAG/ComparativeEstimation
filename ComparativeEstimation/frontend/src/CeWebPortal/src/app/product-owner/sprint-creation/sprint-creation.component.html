@@ -32,8 +32,10 @@
                 </button>
             </div>
             <div class="ce-btn-sprint-create">
-                <button [class.disabled]="!isAddStoryEnabled" type="button" class="btn btn-primary" (click)="onCreateSprint()">Create Sprint</button>
+                <button [class.disabled]="!isSendAllowed" type="button" class="btn btn-primary" (click)="onCreateSprint()">Create Sprint</button>
             </div>
+            <div *ngIf="connStatus == eConnectionStatus.sendInProgress" class="alert ce-alert-bottom alert-info" role="alert">Sprint creation request sent to server.</div>
+            <div *ngIf="connStatus == eConnectionStatus.sendError" class="alert ce-alert-bottom alert-danger" role="alert">An error occured. Maybe server is unavailable. Please try again later.</div>
         </ce-panel-content>
     </ce-panel>
     <div class="col-lg-4"></div>

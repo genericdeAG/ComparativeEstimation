@@ -40,6 +40,7 @@ export class EstimationComponent implements OnInit {
         this.route.queryParams.subscribe(params => { this.sprintId = params['sprintId']; });
         this.restProvider.getComparisonPairsFor(this.sprintId)
             .subscribe(
+                // Success
                 (comparisonPairsDto: ComparisonPairsDto) => {
                     this.comparisonPairs = comparisonPairsDto.Pairs;
                     for (let pair of comparisonPairsDto.Pairs) {
@@ -90,7 +91,8 @@ export class EstimationComponent implements OnInit {
     }
     
     setIsActionAllowed() {
-        this.isActionAllowed = ( (this.connStatus == eConnectionStatus.receiveSuccess) || (this.connStatus == eConnectionStatus.sendError) );
+        this.isActionAllowed = ( (this.connStatus == eConnectionStatus.receiveSuccess) 
+                              || (this.connStatus == eConnectionStatus.sendError) );
     }
     
     setIsSendAllowed() {

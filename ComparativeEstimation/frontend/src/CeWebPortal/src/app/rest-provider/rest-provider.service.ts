@@ -13,10 +13,11 @@ export class RestProviderService {
 
 constructor(private http: Http) { }
    
-    createSprint(stories: string[]): Observable<string> {
+    createSprint(stories: string[]): Observable<string | null> {
         return this.http
             .post(environment.apiEndpoint + '/sprints', JSON.stringify(stories), this.createRequestOptions())
-            .map((res: Response) => { return res.text() });
+            .map((res: Response) => { return res.text() })
+            .catch((error: Response) => Observable.throw(null));
     }
 
     getComparisonPairsFor(sprintId: string): Observable<ComparisonPairsDto | null> {
@@ -28,19 +29,23 @@ constructor(private http: Http) { }
 
     submitVoting(sprintId: string, voting: Voting): Observable<null | InconsistentVote> {
         return this.http
-        .post(environment.apiEndpoint + '/sprints/' + sprintId + '/votings', JSON.stringify(voting), this.createRequestOptions())
-        .map((res: Response) => { return null; })
-        .catch((error: Response) => Observable.throw(error.json()));
+            .post(environment.apiEndpoint + '/sprints/' + sprintId + '/votings', JSON.stringify(voting), this.createRequestOptions())
+            .map((res: Response) => { return null; })
+            .catch((error: Response) => Observable.throw(error.json()));
     }
 
     getTotalWeighting(sprintId: string): Observable<TotalWeighting> {
         return this.http
-        .get(environment.apiEndpoint + '/sprints/' + sprintId + '/totalweighting', this.createRequestOptions())
-        .map((res: Response) => { return res.json() });
+            .get(environment.apiEndpoint + '/sprints/' + sprintId + '/totalweighting', this.createRequestOptions())
+            .map((res: Response) => { return res.json() })
+            .catch((error: Response) => Observable.throw(null));
     }
 
     deleteSprint(sprintId: string) {
-        return this.http.delete(environment.apiEndpoint + '/sprints/' + sprintId, this.createRequestOptions());
+        return this.http
+            .delete(environment.apiEndpoint + '/sprints/' + sprintId, this.createRequestOptions())
+            .map((res: Response) => { return null; })
+            .catch((error: Response) => Observable.throw(null));
     }
 
     private createRequestOptions(): RequestOptions {

@@ -1,4 +1,8 @@
-.ce-btn-sprint-create {
+.ce-space-small {
+    margin-top: 10px;
+}
+
+.ce-space {
     margin-top: 15px;
 }
 
@@ -7,26 +11,18 @@
     margin-top: -1px;
 }
   
-.ce-btn-left {
+.ce-btn-right {
     flex: 1;  /* grow */
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
     text-align: left;
     white-space: pre-wrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
   
-.ce-btn-right {
+.ce-btn-left {
     flex: 0 0 40px;
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-    margin-left: -1px;
+    padding-left: 13px;
 } 
-
-.ce-space {
-    margin-top: 15px;
-}
 
 .ce-alert-top {
     margin: 0 0 15px;
