@@ -5,8 +5,6 @@ import { ComparisonPairsDto } from './ComparisonPairsDto';
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/toPromise';
-import "rxjs/add/operator/map";
 import { environment } from "environments/environment";
 
 @Injectable()
@@ -15,32 +13,39 @@ export class RestProviderService {
 
 constructor(private http: Http) { }
    
-    createSprint(stories: string[]): Observable<string> {
+    createSprint(stories: string[]): Observable<string | null> {
         return this.http
             .post(environment.apiEndpoint + '/sprints', JSON.stringify(stories), this.createRequestOptions())
-            .map(res => { return res.text()});
+            .map((res: Response) => { return res.text() })
+            .catch((error: Response) => Observable.throw(null));
     }
 
-    getComparisonPairsFor(sprintId: string): Observable<ComparisonPairsDto> {
+    getComparisonPairsFor(sprintId: string): Observable<ComparisonPairsDto | null> {
         return this.http
             .get(environment.apiEndpoint + '/sprints/' + sprintId + '/comparisonpairs', this.createRequestOptions())
-            .map(res => { return res.json()});
+            .map((res: Response) => { return res.json() })
+            .catch((error: Response) => Observable.throw(null));
     }
 
-    submitVoting(sprintId: string, voting: Voting): Observable<InconsistentVote> {
+    submitVoting(sprintId: string, voting: Voting): Observable<null | InconsistentVote> {
         return this.http
-        .post(environment.apiEndpoint + '/sprints/' + sprintId + '/votings', JSON.stringify(voting), this.createRequestOptions())
-        .map(res => { return res.json()}); //im Normalfall gibt es hier kein JSON - nur bei Inkonsistenzen. Ggf. gibt es hier bessere Lösung?
+            .post(environment.apiEndpoint + '/sprints/' + sprintId + '/votings', JSON.stringify(voting), this.createRequestOptions())
+            .map((res: Response) => { return null; })
+            .catch((error: Response) => Observable.throw(error.json()));
     }
 
     getTotalWeighting(sprintId: string): Observable<TotalWeighting> {
         return this.http
-        .get(environment.apiEndpoint + '/sprints/' + sprintId + '/totalweighting', this.createRequestOptions())
-        .map(res => { return res.json()});
+            .get(environment.apiEndpoint + '/sprints/' + sprintId + '/totalweighting', this.createRequestOptions())
+            .map((res: Response) => { return res.json() })
+            .catch((error: Response) => Observable.throw(null));
     }
 
     deleteSprint(sprintId: string) {
-        return this.http.delete(environment.apiEndpoint + '/sprints/' + sprintId, this.createRequestOptions());
+        return this.http
+            .delete(environment.apiEndpoint + '/sprints/' + sprintId, this.createRequestOptions())
+            .map((res: Response) => { return null; })
+            .catch((error: Response) => Observable.throw(null));
     }
 
     private createRequestOptions(): RequestOptions {

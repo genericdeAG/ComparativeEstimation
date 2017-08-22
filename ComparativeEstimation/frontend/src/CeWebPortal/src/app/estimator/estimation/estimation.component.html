@@ -1,15 +1,38 @@
-<p>
-  estimation works!
-</p>
+<div class="container">
+    <div class="page-header">
+        <h1>Comparative Estimation<br>
+            <small>Sprint Estimation</small>
+        </h1>
+    </div>
 
-<p>Comparison Pairs</p>
-<ul>
-  <li *ngFor="let pair of comparisonPairs">
-    <label>Id: {{pair.Id}}
-      <select name="selectionFor{{pair.Id}}" size="2">
-        <option>{{pair.A}}</option>
-        <option>{{pair.B}}</option>
-      </select>
-    </label>
-  </li>
-</ul>
+    <ce-panel class="col-lg-8">
+        <ce-panel-header>
+            Comparison Pairs
+        </ce-panel-header>
+        <ce-panel-content>
+            <div *ngIf="connStatus == eConnectionStatus.receiveInProgress" class="alert ce-alert-top alert-info" role="alert">Comparison pairs are loading...</div>
+            <div *ngIf="connStatus == eConnectionStatus.receiveError" class="alert ce-alert-top alert-danger" role="alert">Comparison pairs could not be loaded!</div>
+            <ng-container *ngFor="let pair of comparisonPairs; let i = index">
+                <div class="btn-group ce-box">
+                    <button (click)="onSelect(i, stringSelectionA)" [class.disabled]="!isActionAllowed" [class.active]="isChecked(i, stringSelectionA)" class="btn btn-default ce-btn-left">
+                        <input [checked]="isChecked(i, stringSelectionA)" type="radio" name="{{ pair.Id }}">
+                    </button>
+                    <button (click)="onSelect(i, stringSelectionA)" [class.disabled]="!isActionAllowed" [class.active]="isChecked(i, stringSelectionA)" class="btn btn-default ce-btn-right">{{ pair.A }}</button>
+                </div>
+                <div class="btn-group ce-box">
+                    <button (click)="onSelect(i, stringSelectionB)" [class.disabled]="!isActionAllowed" [class.active]="isChecked(i, stringSelectionB)" class="btn btn-default ce-btn-left">
+                        <input [checked]="isChecked(i, stringSelectionB)" type="radio" name="{{ pair.Id }}">
+                    </button>
+                    <button (click)="onSelect(i, stringSelectionB)" [class.disabled]="!isActionAllowed" [class.active]="isChecked(i, stringSelectionB)" class="btn btn-default ce-btn-right">{{ pair.B }}</button>
+                </div>
+                <div class="ce-space"></div>
+            </ng-container>
+            <button [class.disabled]="!isSendAllowed" (click)="onSend()" class="btn btn-primary">Send Weighting</button>
+            <button  [class.disabled]="!isActionAllowed" (click)="onClear()" class="btn btn-secondary">Clear Weighting</button>
+            <div *ngIf="connStatus == eConnectionStatus.sendInProgress" class="alert ce-alert-bottom alert-info" role="alert">Weighting is processed by server.</div>
+            <div *ngIf="connStatus == eConnectionStatus.sendSuccess" class="alert ce-alert-bottom alert-success" role="alert">Weighting was sent successfully. Thank you for your voting!</div>
+            <div *ngIf="connStatus == eConnectionStatus.sendError" class="alert ce-alert-bottom alert-danger" role="alert">An error occured. Maybe weighting is inconsistent. Please correct and try again.</div>
+        </ce-panel-content>
+    </ce-panel>
+    <div class="col-lg-4"></div>
+</div>

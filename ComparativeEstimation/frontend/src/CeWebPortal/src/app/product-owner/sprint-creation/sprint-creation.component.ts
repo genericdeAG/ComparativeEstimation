@@ -1,6 +1,7 @@
 import { RestProviderService } from './../../rest-provider/rest-provider.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { eConnectionStatus } from "app/eConnectionStatus";
 
 @Component({
     selector: 'sprint-creation',
@@ -8,16 +9,19 @@ import { Router } from '@angular/router';
     styleUrls: ['./sprint-creation.component.css']
 })
 export class SprintCreationComponent {
+    public eConnectionStatus = eConnectionStatus;
+    emptyStory = "";
+
     stories: string[] = [];
-    inputStory: string = "";
-    changeStory: string = "";
-    isAddStoryEnabled = false;
-    
+    inputStory: string = this.emptyStory;
+    changeStory: string = this.emptyStory;
+    savedStoryOnChange = this.emptyStory;
+
     toggleFocusAddInput = false;
     toggleFocusChangeInput = false;
 
-    emptyStory = "";
-    savedStoryOnChange = this.emptyStory;
+    isSendAllowed: boolean = false;
+    connStatus: eConnectionStatus = eConnectionStatus.idle;
 
     constructor(
         private restProvider: RestProviderService,
@@ -27,14 +31,14 @@ export class SprintCreationComponent {
         if (this.validateInput(this.inputStory.trim())) {
             this.stories.push(this.inputStory.trim());
             this.inputStory = this.emptyStory;
-            this.checkIsAddStoryEnabled();
+            this.setIsSendAllowed();
         }
         this.setFocus();
     }
-    
+
     onDelete(index: number) {
         this.stories.splice(index, 1);
-        this.checkIsAddStoryEnabled();
+        this.setIsSendAllowed();
         this.setFocus();
     }
 
@@ -56,20 +60,24 @@ export class SprintCreationComponent {
     }
 
     onCreateSprint() {
-        if (this.isAddStoryEnabled) {
+        if (this.isSendAllowed) {
+            this.setConnectionStatus(eConnectionStatus.sendInProgress);
             this.restProvider.createSprint(this.stories)
-                .subscribe((id: string) => {
-                    this.navigateToSprintCreationResult(id);
-                });
+                .subscribe(
+                    // Success
+                    (id: string) => {
+                        this.setConnectionStatus(eConnectionStatus.sendSuccess);
+                        this.navigateToSprintCreationResult(id);
+                    },
+                    // Error
+                    () => {
+                        this.setConnectionStatus(eConnectionStatus.sendError);
+                    });
         }
     }
 
     navigateToSprintCreationResult(id: string) {
         this.router.navigate(["/sprint-creation-summary"], { queryParams: { sprintId: id } });
-    }
-
-    checkIsAddStoryEnabled() {
-        this.isAddStoryEnabled = this.stories.length < 2 ? false : true;
     }
 
     validateInput(input: string) {
@@ -82,5 +90,16 @@ export class SprintCreationComponent {
         } else {
             this.toggleFocusChangeInput = !this.toggleFocusChangeInput;
         }
+    }
+
+    setIsSendAllowed() {
+        this.isSendAllowed = this.stories.length < 2 ? false : true &&
+            ((this.connStatus == eConnectionStatus.idle)
+                || (this.connStatus == eConnectionStatus.sendError));
+    }
+
+    setConnectionStatus(connStatus: eConnectionStatus) {
+        this.connStatus = connStatus;
+        this.setIsSendAllowed();
     }
 }

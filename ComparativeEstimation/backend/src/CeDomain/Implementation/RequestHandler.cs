@@ -15,9 +15,9 @@ namespace CeDomain
         private readonly SprintRepository repo;
         private readonly IWeighting weighting;
 
-
         public RequestHandler(IWeighting weighting) : this(weighting, new FilesystemEventStore()) { }
-        internal RequestHandler(IWeighting weighting, IEventStore eventstore) {
+        internal RequestHandler(IWeighting weighting, IEventStore eventstore)
+        {
             this.weighting = weighting;
             this.repo = new SprintRepository(eventstore);
         }

@@ -1,13 +1,19 @@
-<p>
-  sprint-deletion
-</p>
+<div class="container">
+    <div class="page-header">
+        <h1>Comparative Estimation<br>
+            <small>Sprint Deletion</small>
+        </h1>
+    </div>
 
-<div *ngIf="success">
-  Sprint {{sprintId}} has been deleted;
+    <ce-panel class="col-lg-8">
+        <ce-panel-header>
+            Summary
+        </ce-panel-header>
+        <ce-panel-content>
+            <div *ngIf="connStatus == eConnectionStatus.sendInProgress" class="alert ce-alert-top alert-info" role="alert">Deletion request for sprint #{{sprintId}}) has been sent to server.</div>
+            <div *ngIf="connStatus == eConnectionStatus.sendSuccess" class="alert ce-alert-top alert-success" role="alert">Sprint #{{sprintId}} has been deleted.<br><b><a [routerLink]="['/sprint-creation']">Create new sprint</a></b></div>
+            <div *ngIf="connStatus == eConnectionStatus.sendError" class="alert ce-alert-top alert-danger" role="alert">An error occured. Maybe server is unavailable. Please try again later.</div>
+        </ce-panel-content>
+    </ce-panel>
+    <div class="col-lg-4"></div>
 </div>
-
-<div *ngIf="!success">Sprint {{sprintId}} could not be deleted.</div>
-
-<p>
-  <a [routerLink]="['/sprint-creation']">Create new sprint</a>
-  </p>
