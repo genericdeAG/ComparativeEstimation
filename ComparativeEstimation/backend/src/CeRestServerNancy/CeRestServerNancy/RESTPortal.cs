@@ -92,7 +92,7 @@ namespace CeRestServerNancy
 			    Console.WriteLine("Liveness check");
 			    var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 			    var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-                return $"Version {fvi.FileVersion} at {DateTime.Now} - v170819b";
+                return $"Version {fvi.FileVersion} at {DateTime.Now} - v170821a";
 			};
         }
 
