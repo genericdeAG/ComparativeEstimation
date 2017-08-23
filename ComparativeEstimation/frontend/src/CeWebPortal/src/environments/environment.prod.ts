@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiEndpoint: "http://wdrssjin.cloud.dropstack.run"
+  apiEndpoint: "http://wdrssjin.cloud.dropstack.run/api"
 };
