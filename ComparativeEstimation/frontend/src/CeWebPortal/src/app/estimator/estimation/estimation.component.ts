@@ -52,20 +52,19 @@ export class EstimationComponent implements OnInit {
                 () => {
                     this.setConnectionStatus(eConnectionStatus.receiveError);
                 });
-        
     }
 
     onClear() {
         if (this.isActionAllowed) {
             this.weighting.forEach(entry => entry.Selection = this.stringSelectionDefault);
-            this.setIsSendAllowed();
+            this.setIsActionAllowed_SetIsSendAllowed();
         }
     }
 
     onSelect(index: number, entry: string) {
         if (this.isActionAllowed) {
             this.weighting[index].Selection = entry;
-            this.setIsSendAllowed();
+            this.setIsActionAllowed_SetIsSendAllowed();
         }
     }
 
@@ -90,19 +89,15 @@ export class EstimationComponent implements OnInit {
         return (this.weighting[index].Selection == entry);
     }
     
-    setIsActionAllowed() {
-        this.isActionAllowed = ( (this.connStatus == eConnectionStatus.receiveSuccess) 
-                              || (this.connStatus == eConnectionStatus.sendError) );
-    }
-    
-    setIsSendAllowed() {
-        this.setIsActionAllowed();
+    setIsActionAllowed_SetIsSendAllowed() {
+        this.isActionAllowed = this.connStatus == eConnectionStatus.receiveSuccess
+                            || this.connStatus == eConnectionStatus.sendError;
         this.isSendAllowed = this.isActionAllowed 
-                             && this.weighting.every(entry => entry.Selection != this.stringSelectionDefault);
+                          && this.weighting.every(entry => entry.Selection != this.stringSelectionDefault);
     }
     
     setConnectionStatus(connStatus: eConnectionStatus) {
         this.connStatus = connStatus;
-        this.setIsSendAllowed();
+        this.setIsActionAllowed_SetIsSendAllowed();
     }
 }

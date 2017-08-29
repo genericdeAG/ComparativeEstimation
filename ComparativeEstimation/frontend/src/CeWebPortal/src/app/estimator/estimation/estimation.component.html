@@ -28,7 +28,7 @@
                 <div class="ce-space"></div>
             </ng-container>
             <button [class.disabled]="!isSendAllowed" (click)="onSend()" class="btn btn-primary">Send Weighting</button>
-            <button  [class.disabled]="!isActionAllowed" (click)="onClear()" class="btn btn-secondary">Clear Weighting</button>
+            <button [class.disabled]="!isActionAllowed" (click)="onClear()" class="btn btn-secondary">Clear Weighting</button>
             <div *ngIf="connStatus == eConnectionStatus.sendInProgress" class="alert ce-alert-bottom alert-info" role="alert">Weighting is processed by server.</div>
             <div *ngIf="connStatus == eConnectionStatus.sendSuccess" class="alert ce-alert-bottom alert-success" role="alert">Weighting was sent successfully. Thank you for your voting!</div>
             <div *ngIf="connStatus == eConnectionStatus.sendError" class="alert ce-alert-bottom alert-danger" role="alert">An error occured. Maybe weighting is inconsistent. Please correct and try again.</div>

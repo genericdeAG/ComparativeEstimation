@@ -14,9 +14,11 @@ import { EstimationComponent } from './estimator/estimation/estimation.component
 import { SprintCreationComponent } from './product-owner/sprint-creation/sprint-creation.component';
 import { SprintCreationSummaryComponent } from './product-owner/sprint-creation-summary/sprint-creation-summary.component';
 import { SprintTotalweightingComponent } from './product-owner/sprint-totalweighting/sprint-totalweighting.component';
+
 import { CePanelComponent } from './components/ce-panel/ce-panel.component';
 import { CePanelContentComponent } from './components/ce-panel/ce-panel-content.component';
 import { CePanelHeaderComponent } from './components/ce-panel/ce-panel-header.component';
+
 import { CeFocusDirective } from './directives/ce-focus.directive';
 
 @NgModule({

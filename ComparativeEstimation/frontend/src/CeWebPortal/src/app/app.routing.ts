@@ -11,8 +11,7 @@ const routes: Routes = [
     { path: "estimation", component: EstimationComponent },
     { path: "weighting-results", component: SprintTotalweightingComponent },
     { path: "sprint-deletion", component: SprintDeletionComponent },
-    { path: "", redirectTo: "sprint-creation", pathMatch: "full" },
-    { path: "**", redirectTo: "sprint-creation", pathMatch: "full" }
-  ];
+    { path: "**", redirectTo: "sprint-creation" }
+];
   
-  export const AppRoutes = RouterModule.forRoot(routes);
+export const AppRoutes = RouterModule.forRoot(routes);

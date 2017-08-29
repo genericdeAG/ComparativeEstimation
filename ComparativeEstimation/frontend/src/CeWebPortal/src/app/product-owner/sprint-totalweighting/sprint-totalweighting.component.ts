@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NgPlural } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestProviderService } from './../../rest-provider/rest-provider.service';
 
@@ -22,6 +23,7 @@ export class SprintTotalweightingComponent implements OnInit, OnDestroy {
     timerValue: number = 0;
     timerSubscription: Subscription;
 
+    isRefreshAllowed: boolean = true;
     connStatus: eConnectionStatus = eConnectionStatus.idle;
 
     constructor(
@@ -35,7 +37,7 @@ export class SprintTotalweightingComponent implements OnInit, OnDestroy {
             (totalWeighting: TotalWeighting) => {
                 this.totalWeighting = totalWeighting;
             });
-        this.onRefresh();        
+        this.updateTotalWeighting();        
     }
 
     ngOnDestroy() {
@@ -43,12 +45,15 @@ export class SprintTotalweightingComponent implements OnInit, OnDestroy {
     }
 
     onRefresh() {
-        this.timerValue = this.timerValueStart;
-        this.updateTotalWeighting();
+        if (this.isRefreshAllowed) {
+            this.updateTotalWeighting();
+        }
     }
     
     updateTotalWeighting() {
         this.setConnectionStatus(eConnectionStatus.receiveInProgress);
+        if ((this.timerSubscription) && (!this.timerSubscription.closed))
+            this.timerSubscription.unsubscribe();
         this.restProvider.getTotalWeighting(this.sprintId)
             .subscribe(
                 // Success
@@ -65,20 +70,24 @@ export class SprintTotalweightingComponent implements OnInit, OnDestroy {
     }
 
     timerAktivieren() {
-        if ((!this.timerSubscription) || (this.timerSubscription.closed)) {
-            let timer = Observable.timer(1000, 1000);
-            this.timerSubscription = timer.subscribe(() => {
-                this.timerValue--;
-                if (this.timerValue <= 0) {
-                    this.timerValue = this.timerValueStart;
-                    this.timerSubscription.unsubscribe();
-                    this.updateTotalWeighting();
-                }
-            });
-        }
+        this.timerValue = this.timerValueStart;
+        let timer = Observable.timer(1000, 1000);
+        this.timerSubscription = timer.subscribe(() => {
+            this.timerValue--;
+            if (this.timerValue <= 0) {
+                this.updateTotalWeighting();
+            }
+        });
+    }
+
+    setIsRefreshAllowed() {
+        this.isRefreshAllowed = (this.connStatus == eConnectionStatus.idle)
+                             || (this.connStatus == eConnectionStatus.receiveSuccess)
+                             || (this.connStatus == eConnectionStatus.receiveError);
     }
 
     setConnectionStatus(connStatus: eConnectionStatus) {
         this.connStatus = connStatus;
+        this.setIsRefreshAllowed();
     }
 }
