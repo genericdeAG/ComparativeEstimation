@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SprintCreationSummaryComponent implements OnInit {
     sprintId: string;
+    baseHref: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -17,5 +18,6 @@ export class SprintCreationSummaryComponent implements OnInit {
         this.route.queryParams.subscribe(params => {
             this.sprintId = params['sprintId'];
         });
+        this.baseHref = window.location.origin;
     }
 }
