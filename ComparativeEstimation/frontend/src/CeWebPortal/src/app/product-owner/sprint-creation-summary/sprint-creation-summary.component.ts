@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { ActivatedRoute, Router, UrlSerializer } from '@angular/router';
 
 @Component({
     selector: 'app-sprint-creation-summary',
@@ -8,16 +9,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SprintCreationSummaryComponent implements OnInit {
     sprintId: string;
-    baseHref: string;
 
     constructor(
+        private location: Location,
         private route: ActivatedRoute,
-        private router: Router) { }
+        private router: Router,
+        private urlSerializer: UrlSerializer) { }
 
     ngOnInit() {
-        this.route.queryParams.subscribe(params => {
-            this.sprintId = params['sprintId'];
-        });
-        this.baseHref = window.location.origin;
+        this.route.params.subscribe(params => this.sprintId = params['id']);
+    }
+
+    generateExternalUrl(path: string, param: string): string {
+        let tree = this.router.createUrlTree([path, param]);
+        let url = this.urlSerializer.serialize(tree);
+        let fullUrl = window.location.origin + this.location.prepareExternalUrl(url);
+        return fullUrl;
     }
 }

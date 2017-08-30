@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgPlural } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RestProviderService } from './../../rest-provider/rest-provider.service';
 
 import { eConnectionStatus } from "app/eConnectionStatus";
@@ -28,20 +28,21 @@ export class SprintTotalweightingComponent implements OnInit, OnDestroy {
 
     constructor(
         private restProvider: RestProviderService,
-        private route: ActivatedRoute,
-        private router: Router) { }
+        private route: ActivatedRoute) { }
 
     ngOnInit() {
-        this.route.queryParams.subscribe(params => { this.sprintId = params['sprintId']; });
-        this.subjectTotalWeighting.asObservable().subscribe(
-            (totalWeighting: TotalWeighting) => {
-                this.totalWeighting = totalWeighting;
-            });
-        this.updateTotalWeighting();        
+        this.route.params.subscribe(params => {
+            this.sprintId = params['id'];
+            this.subjectTotalWeighting.asObservable().subscribe(
+                (totalWeighting: TotalWeighting) => {
+                    this.totalWeighting = totalWeighting;
+                });
+            this.updateTotalWeighting();
+        });     
     }
 
     ngOnDestroy() {
-        this.timerSubscription.unsubscribe();
+        this.timerDeaktivieren();
     }
 
     onRefresh() {
@@ -52,8 +53,7 @@ export class SprintTotalweightingComponent implements OnInit, OnDestroy {
     
     updateTotalWeighting() {
         this.setConnectionStatus(eConnectionStatus.receiveInProgress);
-        if ((this.timerSubscription) && (!this.timerSubscription.closed))
-            this.timerSubscription.unsubscribe();
+        this.timerDeaktivieren();
         this.restProvider.getTotalWeighting(this.sprintId)
             .subscribe(
                 // Success
@@ -78,6 +78,11 @@ export class SprintTotalweightingComponent implements OnInit, OnDestroy {
                 this.updateTotalWeighting();
             }
         });
+    }
+
+    timerDeaktivieren() {
+        if (this.timerSubscription && !this.timerSubscription.closed)
+            this.timerSubscription.unsubscribe();
     }
 
     setIsRefreshAllowed() {
