@@ -40,56 +40,49 @@ namespace CeWeighting
             return node;
         }
 
+        
         /// <summary>
         /// Sortierung des Graphen anhand
         /// https://de.wikipedia.org/wiki/Topologische_Sortierung
         /// </summary>
         public static void Sort(Graph graph, Action<TotalWeighting> ok, Action exception)
         {
-            var dict = Calculate_Amount_Of_Predecessors(graph);
+            var dict = Calculate_Number_Of_Predecessors(graph);
             Sort_Topologically(graph, dict,
                 ok,
                 exception);
         }
 
-        internal static Dictionary<int, int> Calculate_Amount_Of_Predecessors(Graph graph)
-        {
-            if (graph?.Nodes == null)
-            {
-                return new Dictionary<int, int>();
-            }
+        internal static Dictionary<int, int> Calculate_Number_Of_Predecessors(Graph graph) {
+            if (graph?.Nodes == null) return new Dictionary<int, int>();
 
-            return graph.Nodes.Select(k => new
-                {
+            return graph.Nodes.Select(k => new {
                     Index = k.Index,
-                    AnzahlVorgänger = graph.Nodes.Count(v => v.Successors.Select(m => m.Index)
-                        .Contains(k.Index))
+                    NumberOfPredecessors = graph.Nodes.Count(v => v.Successors.Select(m => m.Index)
+                                                      .Contains(k.Index))
                 })
-                .ToDictionary(k => k.Index, v => v.AnzahlVorgänger);
+                .ToDictionary(k => k.Index, v => v.NumberOfPredecessors);
         }
 
-        internal static void Sort_Topologically(Graph graph, Dictionary<int, int> predecessors, Action<TotalWeighting> ok, Action exception)
+        
+        internal static void Sort_Topologically(Graph graph, Dictionary<int, int> predecessors, 
+                                                Action<TotalWeighting> ok, Action exception)
         {
             var storyIndices = new List<int>();
 
-            while (predecessors.Any())
-            {
-                // finde elemente Ohne Vorgänger
+            while (predecessors.Any()) {
+                // finde elemente ohne Vorgänger
                 var nodesWithoutPredecessors = predecessors.Where(v => v.Value == 0).ToList();
-                if (!nodesWithoutPredecessors.Any())
-                {
+                if (!nodesWithoutPredecessors.Any()) {
                     exception();
                     return;
                 }
 
-                foreach (var pair in nodesWithoutPredecessors)
-                {
+                foreach (var pair in nodesWithoutPredecessors) {
                     storyIndices.Add(pair.Key);
-                    foreach (var node in graph.Nodes.First(k => k.Index == pair.Key).Successors)
-                    {
+                    foreach (var node in graph.Nodes.First(k => k.Index == pair.Key).Successors) {
                         predecessors[node.Index]--;
                     }
-
                     predecessors.Remove(pair.Key);
                 }
             }

@@ -12,7 +12,9 @@ namespace CeWeighting
 {
     public class Weighting : IWeighting
     {
-        public void Compute_Estimator_Weighting(IEnumerable<WeightedComparisonPairDto> voting, IEnumerable<ComparisonPair> comparisonPairs, Action<TotalWeighting> ok, Action exception)
+        public void Compute_Estimator_Weighting(IEnumerable<WeightedComparisonPairDto> voting, 
+                                                IEnumerable<ComparisonPair> comparisonPairs, 
+                                                Action<TotalWeighting> ok, Action exception)
         {
             var relations = Create_Relations(voting, comparisonPairs);
             var graph = GraphGenerator.Create_Graph(relations);
@@ -21,7 +23,8 @@ namespace CeWeighting
                 exception);
         }
 
-        public static IEnumerable<IndexTupel> Create_Relations(IEnumerable<WeightedComparisonPairDto> voting, IEnumerable<ComparisonPair> comparisonPairs)
+        public static IEnumerable<IndexTupel> Create_Relations(IEnumerable<WeightedComparisonPairDto> voting, 
+                                                               IEnumerable<ComparisonPair> comparisonPairs)
         {
             var pairs = comparisonPairs.ToList();
             return voting.Select(v => Create_IndexTupel(v, pairs.First(p => p.Id == v.Id)));
