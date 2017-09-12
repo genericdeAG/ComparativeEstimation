@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RestProviderService } from './../../rest-provider/rest-provider.service';
 
 import { ComparisonPairsDto } from './../../rest-provider/ComparisonPairsDto';
@@ -32,40 +32,43 @@ export class EstimationComponent implements OnInit {
 
     constructor(
         private restProvider: RestProviderService,
-        private route: ActivatedRoute,
-        private router: Router) { }
+        private route: ActivatedRoute) { }
 
     ngOnInit() {
         this.setConnectionStatus(eConnectionStatus.receiveInProgress);
-        this.route.queryParams.subscribe(params => { this.sprintId = params['sprintId']; });
-        this.restProvider.getComparisonPairsFor(this.sprintId)
-            .subscribe(
-                // Success
-                (comparisonPairsDto: ComparisonPairsDto) => {
-                    this.comparisonPairs = comparisonPairsDto.Pairs;
-                    for (let pair of comparisonPairsDto.Pairs) {
-                        this.weighting.push(new Weighting(pair.Id, this.stringSelectionDefault));
-                    }
-                    this.setConnectionStatus(eConnectionStatus.receiveSuccess);
-                },
-                // Error
-                () => {
-                    this.setConnectionStatus(eConnectionStatus.receiveError);
-                });
-        
+        this.route.params.subscribe(params => {
+            this.sprintId = params['id'];
+            this.getComparisonPairs();
+        });
+    }
+
+    getComparisonPairs() {
+        this.restProvider.getComparisonPairsFor(this.sprintId).subscribe(
+            // Success
+            (comparisonPairsDto: ComparisonPairsDto) => {
+                this.comparisonPairs = comparisonPairsDto.Pairs;
+                for (let pair of comparisonPairsDto.Pairs) {
+                    this.weighting.push(new Weighting(pair.Id, this.stringSelectionDefault));
+                }
+                this.setConnectionStatus(eConnectionStatus.receiveSuccess);
+            },
+            // Error
+            () => {
+                this.setConnectionStatus(eConnectionStatus.receiveError);
+        });
     }
 
     onClear() {
         if (this.isActionAllowed) {
             this.weighting.forEach(entry => entry.Selection = this.stringSelectionDefault);
-            this.setIsSendAllowed();
+            this.setIsActionAllowed_SetIsSendAllowed();
         }
     }
 
     onSelect(index: number, entry: string) {
         if (this.isActionAllowed) {
             this.weighting[index].Selection = entry;
-            this.setIsSendAllowed();
+            this.setIsActionAllowed_SetIsSendAllowed();
         }
     }
 
@@ -90,19 +93,15 @@ export class EstimationComponent implements OnInit {
         return (this.weighting[index].Selection == entry);
     }
     
-    setIsActionAllowed() {
-        this.isActionAllowed = ( (this.connStatus == eConnectionStatus.receiveSuccess) 
-                              || (this.connStatus == eConnectionStatus.sendError) );
-    }
-    
-    setIsSendAllowed() {
-        this.setIsActionAllowed();
+    setIsActionAllowed_SetIsSendAllowed() {
+        this.isActionAllowed = this.connStatus == eConnectionStatus.receiveSuccess
+                            || this.connStatus == eConnectionStatus.sendError;
         this.isSendAllowed = this.isActionAllowed 
-                             && this.weighting.every(entry => entry.Selection != this.stringSelectionDefault);
+                          && this.weighting.every(entry => entry.Selection != this.stringSelectionDefault);
     }
     
     setConnectionStatus(connStatus: eConnectionStatus) {
         this.connStatus = connStatus;
-        this.setIsSendAllowed();
+        this.setIsActionAllowed_SetIsSendAllowed();
     }
 }

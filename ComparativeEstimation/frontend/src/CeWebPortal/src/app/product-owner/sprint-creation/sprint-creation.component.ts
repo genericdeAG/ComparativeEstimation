@@ -77,7 +77,7 @@ export class SprintCreationComponent {
     }
 
     navigateToSprintCreationResult(id: string) {
-        this.router.navigate(["/sprint-creation-summary"], { queryParams: { sprintId: id } });
+        this.router.navigate(["/sprint-creation-summary", id]);
     }
 
     validateInput(input: string) {

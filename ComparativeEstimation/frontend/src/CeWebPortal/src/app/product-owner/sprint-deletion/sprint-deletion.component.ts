@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RestProviderService } from './../../rest-provider/rest-provider.service';
 import { eConnectionStatus } from "app/eConnectionStatus";
 
@@ -10,30 +10,31 @@ import { eConnectionStatus } from "app/eConnectionStatus";
 })
 export class SprintDeletionComponent implements OnInit {
     public eConnectionStatus = eConnectionStatus;
-    sprintId: string;
+    sprintId: string = "";
     connStatus: eConnectionStatus = eConnectionStatus.idle; 
 
     constructor(
         private restProvider: RestProviderService,
-        private route: ActivatedRoute,
-        private router: Router) { }
+        private route: ActivatedRoute) { }
 
     ngOnInit() {
-        this.route.queryParams.subscribe(params => { this.sprintId = params['sprintId']; });
-        this.setConnectionStatus(eConnectionStatus.sendInProgress);
-        this.restProvider.deleteSprint(this.sprintId)
-            .subscribe(
-                // Success
-                () => {
-                    this.setConnectionStatus(eConnectionStatus.sendSuccess);
-                },
-                // Error
-                () => {
-                    this.setConnectionStatus(eConnectionStatus.sendError);
-                });
-        }
+        this.route.params.subscribe(params => {
+            this.sprintId = params['id'];
+            this.deleteSprint();
+        });
+    }  
 
-    setConnectionStatus(connStatus: eConnectionStatus) {
-        this.connStatus = connStatus;
+    deleteSprint() {
+        this.connStatus = eConnectionStatus.sendInProgress;
+        this.restProvider.deleteSprint(this.sprintId)
+        .subscribe(
+            // Success
+            () => {
+                this.connStatus = eConnectionStatus.sendSuccess;
+            },
+            // Error
+            () => {
+                this.connStatus = eConnectionStatus.sendError;
+            });
     }
 }

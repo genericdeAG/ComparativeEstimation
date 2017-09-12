@@ -20,11 +20,13 @@
                 </div>
             </ng-container>
             <div class="ce-space-small"></div>
-            <p><b>{{ totalWeighting.NumberOfVotings }} 
-                <ng-container *ngIf="totalWeighting.NumberOfVotings != 1">votings</ng-container>
-                <ng-container *ngIf="totalWeighting.NumberOfVotings == 1">voting</ng-container>
+            <p><b>{{ totalWeighting.NumberOfVotings }}
+                <ng-container [ngPlural]="totalWeighting.NumberOfVotings">
+                    <ng-template ngPluralCase="one"> voting</ng-template>
+                    <ng-template ngPluralCase="other"> votings</ng-template>
+                </ng-container>
             </b></p>
-            <button (click)="onRefresh()" class="btn btn-primary">Reload Weighting <span class="badge">{{ timerValue }}</span></button>
+            <button (click)="onRefresh()" [class.disabled]="!isRefreshAllowed" class="btn btn-primary">Reload Weighting <span class="badge">{{ timerValue }}</span></button>
         </ce-panel-content>
     </ce-panel>
     <div class="col-lg-4"></div>

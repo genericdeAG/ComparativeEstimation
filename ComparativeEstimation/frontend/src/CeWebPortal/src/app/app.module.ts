@@ -1,7 +1,4 @@
-import './rxjs-operators';
-
 import { SprintDeletionComponent } from './product-owner/sprint-deletion/sprint-deletion.component';
-import { AppRoutes } from './app.routing';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +14,10 @@ import { SprintTotalweightingComponent } from './product-owner/sprint-totalweigh
 import { CePanelComponent } from './components/ce-panel/ce-panel.component';
 import { CePanelContentComponent } from './components/ce-panel/ce-panel-content.component';
 import { CePanelHeaderComponent } from './components/ce-panel/ce-panel-header.component';
+
 import { CeFocusDirective } from './directives/ce-focus.directive';
+
+import { AppRoutes } from './app.routing';
 
 @NgModule({
     declarations: [

@@ -14,19 +14,19 @@
             <div class="panel panel-default">
                 <div class="panel-heading">To vote use this link:</div>
                 <div class="panel-body">
-                    <p><a [routerLink]="['/estimation']" [queryParams]="{sprintId: sprintId}">http://localhost:8080/estimation/{{sprintId}}</a></p>
+                    <p><a [routerLink]="['/estimation', sprintId]">{{ generateExternalUrl("/estimation", sprintId) }}</a></p>
                 </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">Check weighting results here:</div>
                 <div class="panel-body">
-                    <p><a [routerLink]="['/weighting-results']" [queryParams]="{sprintId: sprintId}">http://localhost:8080/weighting-results/{{sprintId}}</a></p>
+                    <p><a [routerLink]="['/weighting-results', sprintId]">{{ generateExternalUrl("/weighting-results", sprintId) }}</a></p>
                 </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">Delete sprint here:</div>
                 <div class="panel-body">
-                    <p><a [routerLink]="['/sprint-deletion']" [queryParams]="{sprintId: sprintId}">http://localhost:8080/sprint-deletion/{{sprintId}}</a></p>
+                    <p><a [routerLink]="['/sprint-deletion', sprintId]">{{ generateExternalUrl("/sprint-deletion-results", sprintId) }}</a></p>
                 </div>
             </div>
         </ce-panel-content>
